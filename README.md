@@ -1,31 +1,29 @@
-# Ngày 8 — RAG Pipeline v2
+# PLVN — Trợ lý Pháp luật & Tin tức (RAG Pipeline v2)
 
-**Chương 2 | Ngày 8 trong 15**
+Một hệ thống Hỏi - Đáp (Question Answering) dựa trên kiến trúc RAG (Retrieval-Augmented Generation) chuyên sâu về lĩnh vực **Pháp luật và Tin tức phòng, chống ma tuý**. Hệ thống tập trung vào tính minh bạch, mỗi câu trả lời đều được trích dẫn nguồn rõ ràng và kiểm chứng được.
 
----
+## 🌟 Tính Năng Nổi Bật
 
-## Mục Tiêu
+- **Hybrid Search + Reranking:** Kết hợp tìm kiếm ngữ nghĩa (Semantic) và từ khóa (Lexical - BM25), sau đó đánh giá lại độ ưu tiên (Rerank) bằng mô hình Cross-Encoder để có kết quả chính xác nhất.
+- **Vectorless Fallback (PageIndex):** Tự động chuyển đổi sang phương thức tìm kiếm không cần vector khi kết quả hybrid search không đạt ngưỡng tin cậy.
+- **Trích dẫn minh bạch (Detailed Citations):** LLM sinh câu trả lời kèm trích dẫn gốc. Giao diện frontend hỗ trợ hiển thị đoạn text gốc, điểm số relevance và tự động tô sáng (highlight) từ khóa của người dùng.
+- **Giao diện hiện đại (React/Vite):** Frontend thân thiện, hỗ trợ thao tác tinh chỉnh thông số truy xuất (Top-K, Threshold, Search Mode, HyDE) theo thời gian thực.
+- **Conversation Memory:** Duy trì ngữ cảnh hội thoại đa lượt.
 
-Xây dựng một RAG pipeline thực tế, end-to-end, từ thu thập dữ liệu pháp luật và báo chí về ma tuý → xử lý → indexing → retrieval (hybrid + vectorless fallback) → generation có citation.
+## 📁 Cấu Trúc Dự Án
 
----
-
-## Chủ Đề Dữ Liệu
-
-**Pháp luật Việt Nam về ma tuý và các chất cấm** + **Các bài báo về nghệ sĩ liên quan tới ma tuý**
-
----
-
-## Cấu Trúc Thư Mục
-
-```
+```text
 day_08_rag_pipeline_v2/
-├── README.md
+├── frontend/             ← Giao diện người dùng (React, Vite)
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/        ← Chứa ChatPage.jsx (Giao diện chính)
+│   │   └── config/
+│   └── package.json
 ├── data/
-│   ├── landing/          ← Task 1 & 2: raw files (PDF, DOCX, HTML)
-│   └── standardized/     ← Task 3: converted markdown files
-├── src/
-│   ├── __init__.py
+│   ├── landing/          ← Dữ liệu thô (PDF, DOCX, HTML, JSON)
+│   └── standardized/     ← Dữ liệu đã được chuyển đổi sang Markdown
+├── src/                  ← Backend & Data Pipeline
 │   ├── task1_collect_legal_docs.py
 │   ├── task2_crawl_news.py
 │   ├── task3_convert_markdown.py
@@ -36,16 +34,14 @@ day_08_rag_pipeline_v2/
 │   ├── task8_pageindex_vectorless.py
 │   ├── task9_retrieval_pipeline.py
 │   └── task10_generation.py
-├── notebooks/
-│   └── demo.ipynb         ← Notebook demo cho buổi trình bày
-├── group_project/
-│   └── README.md          ← Hướng dẫn bài tập nhóm
-├── requirements.txt
-└── .env.example
+├── chroma_db/            ← Cơ sở dữ liệu Vector cục bộ
+├── notebooks/            ← Notebook demo 
+└── requirements.txt
 ```
 
----
+## 🚀 Hướng Dẫn Cài Đặt & Khởi Chạy
 
+<<<<<<< HEAD
 ## Nhiệm Vụ Chi Tiết
 
 ### Task 1 — Thu Thập Văn Bản Pháp Luật (Cá nhân)
@@ -555,91 +551,52 @@ Hãy giữ lại repo này nếu như bạn học track 3 giai đoạn 2, chúng
 ---
 
 ## Cài Đặt Môi Trường
+=======
+### 1. Cài đặt Backend (Data Pipeline)
+Yêu cầu: Python 3.10+
+>>>>>>> quyen
 
 ```bash
+# Cài đặt các thư viện cần thiết
 pip install -r requirements.txt
-```
 
-Tạo file `.env` từ `.env.example`:
-```bash
+# Copy file môi trường và điền API keys của bạn (nếu có dùng API ngoài như OpenAI, Jina)
 cp .env.example .env
-# Điền API keys vào .env
 ```
 
----
+Để chạy pipeline xử lý dữ liệu từ đầu (Thu thập -> Markdown -> Chunking -> Indexing):
+```bash
+python src/task1_collect_legal_docs.py
+python src/task2_crawl_news.py
+python src/task3_convert_markdown.py
+python src/task4_chunking_indexing.py
+```
 
-## Chấm Điểm
-
-### Tổng Quan Phân Bổ Điểm
-
-| Thành phần | Tỷ trọng | Mô tả |
-|-----------|----------|-------|
-| **Bài Cá Nhân** | **50%** | 10 tasks, chấm bằng automated tests + manual review |
-| **Bài Nhóm** | **30%** | RAG Chatbot + Evaluation pipeline |
-| **Bonus** | **20%** | Các tiêu chí nâng cao (xem bên dưới) |
-
----
-
-### Bài Cá Nhân — 50 điểm (50%)
-
-Chấm bằng automated test suite (`pytest tests/ -v`). Mỗi task có test riêng.
-
-| Task | Nội dung | Điểm | Test |
-|------|----------|------|------|
-| 1 | Thu thập văn bản pháp luật (≥3 files tồn tại trong `data/landing/legal/`) | 3 | `test_task1_*` |
-| 2 | Crawl bài báo (≥5 files tồn tại trong `data/landing/news/`) | 3 | `test_task2_*` |
-| 3 | Convert markdown (files tồn tại trong `data/standardized/`) | 4 | `test_task3_*` |
-| 4 | Chunking + Indexing (vector store có data) | 7 | `test_task4_*` |
-| 5 | Semantic search trả về kết quả đúng format, sorted | 6 | `test_task5_*` |
-| 6 | Lexical search (BM25) trả về kết quả đúng format | 6 | `test_task6_*` |
-| 7 | Reranking hoạt động, output re-sorted | 6 | `test_task7_*` |
-| 8 | PageIndex query trả về kết quả | 4 | `test_task8_*` |
-| 9 | Retrieval pipeline + fallback logic hoạt động | 7 | `test_task9_*` |
-| 10 | Generation có citation + reorder | 4 | `test_task10_*` |
-| **Tổng** | | **50** | |
-
----
-
-### Bài Nhóm — 30 điểm (30%)
-
-| Tiêu chí | Điểm |
-|----------|------|
-| RAG Chatbot demo hoạt động được | 8 |
-| Tích hợp pipeline các thành viên | 4 |
-| Kiến trúc rõ ràng + README | 3 |
-| Chất lượng câu trả lời (có citation, đúng nội dung) | 3 |
-| **Evaluation pipeline** (DeepEval / RAGAS / TruLens) | **12** |
-| — Golden dataset ≥15 Q&A pairs | 3 |
-| — Chạy eval với ≥4 metrics | 4 |
-| — So sánh A/B ≥2 configs + phân tích | 3 |
-| — Báo cáo kết quả có phân tích worst performers | 2 |
-
----
-
-### Bonus — 20 điểm (20%)
-
-| Tiêu chí | Điểm |
-|----------|------|
-| Giải thích cơ chế lexical search khác BM25 (trong demo) | 5 |
-| Implement HyDE (Hypothetical Document Embeddings) cho query | 5 |
-| Deploy chatbot online (Hugging Face Spaces / Render / ...) | 4 |
-| Conversation memory (multi-turn chat) | 3 |
-| UI/UX chất lượng (hiển thị source, score, highlight) | 3 |
-
----
-
-### Chạy Test Chấm Điểm Bài Cá Nhân
+### 2. Khởi chạy Frontend
+Yêu cầu: Node.js 18+
 
 ```bash
-# Chạy toàn bộ test suite
-pytest tests/ -v
+cd frontend
+npm install
 
-# Chạy từng task
-pytest tests/test_individual.py::TestTask1 -v
-pytest tests/test_individual.py::TestTask5 -v
+# Khởi chạy server phát triển
+npm run dev
 ```
+Trình duyệt sẽ tự động mở giao diện tại `http://localhost:5173`.
+
+## 🛠 Công Nghệ Sử Dụng
+
+- **Backend & Pipeline:** Python, LangChain, Weaviate / ChromaDB, BM25 (rank_bm25), MarkItDown, Crawl4AI.
+- **AI Models:** 
+  - Embedding: `sentence-transformers/all-MiniLM-L6-v2` hoặc BAAI/bge-m3.
+  - Reranker: `jina-reranker-v2-base-multilingual` / Qwen Reranker.
+- **Frontend:** React.js, Vite, Lucide React, Vanilla CSS.
+
+## 📝 Đánh Giá (Evaluation)
+Dự án có hỗ trợ framework đánh giá RAG (RAGAS / DeepEval / TruLens) nằm trong bài tập nhóm `group_project/README.md`. Nhóm tiến hành tạo Golden Dataset và chạy benchmark các trục: *Faithfulness, Answer Relevance, Context Recall, Context Precision*.
 
 ---
+<<<<<<< HEAD
 
 ## Hướng Dẫn Thời Gian
 
@@ -664,3 +621,6 @@ pytest tests/test_individual.py::TestTask5 -v
 - [Jina Reranker](https://jina.ai/reranker/) — Cross-encoder reranking API
 - Liu et al. (2023), *Lost in the Middle: How Language Models Use Long Contexts*
 # Day08_RAG_pipeline_cohort2
+=======
+*Dự án nằm trong khuôn khổ chương trình RAG Pipeline Cohort 2.*
+>>>>>>> quyen
