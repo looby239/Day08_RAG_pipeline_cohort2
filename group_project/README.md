@@ -1,5 +1,10 @@
 # Bài Tập Nhóm — Search Engine / RAG Chatbot
-
+## Thành viên nhóm
+2A202600896 - Đặng Tiến Quyền
+2A202600817 - Nguyễn Thành Lộc
+2A202600708 - Dương Quang Khải
+2A202600843 - Nguyễn Hồng Phúc
+2A202600776 - Vũ Xuân Bách
 ## Mục Tiêu
 
 Sau khi hoàn thành bài cá nhân, nhóm ngồi lại để xây dựng **1 trong 2 sản phẩm**:
