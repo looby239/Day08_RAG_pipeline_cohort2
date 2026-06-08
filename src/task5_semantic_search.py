@@ -26,37 +26,47 @@ def semantic_search(query: str, top_k: int = 10) -> list[dict]:
         }
         Sorted by score descending.
     """
-    # TODO: Implement semantic search
-    #
-    # Bước 1: Embed query bằng cùng model ở Task 4
-    # Bước 2: Query vector store (cosine similarity)
-    # Bước 3: Return top_k results
-    #
-    # Ví dụ với Weaviate:
-    # import weaviate
-    # from sentence_transformers import SentenceTransformer
-    #
-    # model = SentenceTransformer("BAAI/bge-m3")
-    # query_embedding = model.encode(query).tolist()
-    #
-    # client = weaviate.connect_to_local()
-    # collection = client.collections.get("DrugLawDocs")
-    #
-    # results = collection.query.near_vector(
-    #     near_vector=query_embedding,
-    #     limit=top_k,
-    #     return_metadata=MetadataQuery(distance=True)
-    # )
-    #
-    # return [
-    #     {
-    #         "content": obj.properties["content"],
-    #         "score": 1 - obj.metadata.distance,  # distance → similarity
-    #         "metadata": {"source": obj.properties["source"], ...}
-    #     }
-    #     for obj in results.objects
-    # ]
-    raise NotImplementedError("Implement semantic_search")
+    import os
+    import chromadb
+    from sentence_transformers import SentenceTransformer
+    from src.task4_chunking_indexing import EMBEDDING_MODEL
+
+    # Embed query
+    model = SentenceTransformer(EMBEDDING_MODEL)
+    query_embedding = model.encode(query).tolist()
+
+    # Query ChromaDB
+    db_path = os.path.join(os.path.dirname(__file__), "..", "chroma_db")
+    client = chromadb.PersistentClient(path=db_path)
+    
+    try:
+        collection = client.get_collection("DrugLawDocs")
+    except Exception:
+        print("[ERROR] Không tìm thấy collection 'DrugLawDocs'. Hãy chạy task 4 trước.")
+        return []
+
+    results = collection.query(
+        query_embeddings=[query_embedding],
+        n_results=top_k
+    )
+
+    out = []
+    if results and results.get("documents") and results["documents"][0]:
+        docs = results["documents"][0]
+        distances = results["distances"][0]
+        metadatas = results["metadatas"][0]
+
+        for doc, dist, meta in zip(docs, distances, metadatas):
+            # ChromaDB mặc định dùng L2 distance. Convert sang similarity score = 1 / (1 + distance)
+            score = 1.0 / (1.0 + dist)
+            out.append({
+                "content": doc,
+                "score": score,
+                "metadata": meta
+            })
+
+    # Đảm bảo sort theo score giảm dần
+    return sorted(out, key=lambda x: x["score"], reverse=True)
 
 
 if __name__ == "__main__":

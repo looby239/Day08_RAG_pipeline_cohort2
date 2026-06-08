@@ -13,8 +13,12 @@ Cài đặt:
 
 import asyncio
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
+
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
 
 DATA_DIR = Path(__file__).parent.parent / "data" / "landing" / "news"
 
@@ -24,12 +28,15 @@ def setup_directory():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 
-# TODO: Điền danh sách URL bài báo cần crawl
+
 ARTICLE_URLS = [
-    # Ví dụ:
-    # "https://vnexpress.net/...",
-    # "https://tuoitre.vn/...",
-    # "https://thanhnien.vn/...",
+   
+    "https://thanhnien.vn/ca-si-chi-dan-bi-cong-an-dieu-tra-nghi-lien-quan-ma-tuy-tu-su-nghiep-dinh-cao-den-lui-tan-boi-chuoi-scandal-185241110122627568.htm",
+    "https://thanhnien.vn/ca-si-long-nhat-bi-bat-showbiz-viet-lien-tiep-chan-dong-vi-ma-tuy-18526052013032001.htm",
+    "https://thanhnien.vn/ca-si-miu-le-bi-khoi-to-vi-lien-quan-ma-tuy-185260516222922308.htm",
+    "https://vnexpress.net/nguoi-mau-andrea-aybar-cung-tro-ly-lam-tiec-ma-tuy-trong-can-ho-cao-cap-5059429.html",
+    "https://xaydungchinhsach.chinhphu.vn/khoi-to-bat-tam-giam-long-nhat-son-ngoc-minh-cung-69-bi-can-119260520124509053.htm"
+
 ]
 
 
@@ -45,18 +52,25 @@ async def crawl_article(url: str) -> dict:
             "content_markdown": str
         }
     """
-    from crawl4ai import AsyncWebCrawler
+    try:
+        from crawl4ai import AsyncWebCrawler
+    except ImportError:
+        print("[ERROR] Thư viện crawl4ai chưa được cài đặt. Vui lòng chạy: pip install crawl4ai")
+        sys.exit(1)
 
-    # TODO: Implement crawling logic
-    # async with AsyncWebCrawler() as crawler:
-    #     result = await crawler.arun(url=url)
-    #     return {
-    #         "url": url,
-    #         "title": result.metadata.get("title", "Unknown"),
-    #         "date_crawled": datetime.now().isoformat(),
-    #         "content_markdown": result.markdown,
-    #     }
-    raise NotImplementedError("Implement crawl_article")
+    async with AsyncWebCrawler() as crawler:
+        result = await crawler.arun(url=url)
+        # Trích xuất metadata an toàn
+        title = "Unknown"
+        if result.metadata and isinstance(result.metadata, dict):
+            title = result.metadata.get("title", "Unknown")
+            
+        return {
+            "url": url,
+            "title": title,
+            "date_crawled": datetime.now().isoformat(),
+            "content_markdown": result.markdown if hasattr(result, 'markdown') and result.markdown else "",
+        }
 
 
 async def crawl_all():
@@ -70,8 +84,8 @@ async def crawl_all():
         # Lưu file JSON
         filename = f"article_{i:02d}.json"
         filepath = DATA_DIR / filename
-        filepath.write_text(json.dumps(article, ensure_ascii=False, indent=2))
-        print(f"  ✓ Saved: {filepath}")
+        filepath.write_text(json.dumps(article, ensure_ascii=False, indent=2), encoding='utf-8')
+        print(f"  [OK] Saved: {filepath}")
 
 
 if __name__ == "__main__":

@@ -1,17 +1,14 @@
 [
-  {
-    "question": "Hình phạt cho tội tàng trữ trái phép chất ma tuý theo Điều 249 Bộ luật Hình sự?",
-    "expected_answer": "Phạt tù từ 1 đến 5 năm đối với trường hợp tàng trữ từ 1g đến dưới 5g heroin hoặc cocaine, hoặc chất ma tuý khác với khối lượng tương đương.",
-    "expected_context": "Bộ luật Hình sự 2015, Điều 249"
-  },
-  {
-    "question": "Luật Phòng chống ma tuý 2021 quy định những hình thức cai nghiện nào?",
-    "expected_answer": "Cai nghiện tự nguyện tại gia đình, cai nghiện tự nguyện tại cộng đồng, cai nghiện tự nguyện tại cơ sở cai nghiện, và cai nghiện bắt buộc tại cơ sở cai nghiện.",
-    "expected_context": "Luật Phòng chống ma tuý 2021, Chương V"
-  },
-  {
-    "question": "Danh mục các chất ma tuý thuộc nhóm I theo quy định pháp luật Việt Nam gồm những chất nào?",
-    "expected_answer": "Nhóm I gồm các chất ma tuý tuyệt đối cấm sử dụng trong y học và đời sống, bao gồm heroin, cocaine, methamphetamine, MDMA (ecstasy), cannabis (cần sa), và các chất tương tự.",
-    "expected_context": "Nghị định 57/2022/NĐ-CP, Phụ lục I"
-  }
+    {
+        "question": "Hình phạt cho tội tàng trữ trái phép chất ma tuý theo pháp luật Việt Nam?",
+        "expected_answer": "Theo Điều 249 Bộ luật Hình sự 2015 (sửa đổi, bổ sung 2017), người nào tàng trữ trái phép chất ma túy có thể bị phạt tù từ 01 năm đến 05 năm đối với trường hợp vi phạm cơ bản. Các trường hợp nghiêm trọng hơn có thể bị phạt tù từ 05 năm đến 20 năm hoặc tù chung thân tùy theo loại và khối lượng chất ma túy."
+    },
+    {
+        "question": "Quy trình cai nghiện bắt buộc theo Luật Phòng chống ma tuý 2021?",
+        "expected_answer": "Căn cứ theo Luật Phòng chống ma túy 2021, quy trình bao gồm: lập hồ sơ đề nghị áp dụng biện pháp đưa vào cơ sở cai nghiện bắt buộc; Tòa án nhân dân cấp huyện xem xét, quyết định; người bị áp dụng biện pháp phải chấp hành tại cơ sở cai nghiện bắt buộc với thời gian từ 12 đến 24 tháng."
+    },
+    {
+        "question": "Những nghệ sĩ nào đã bị bắt vì liên quan tới ma tuý gần đây?",
+        "expected_answer": "Một số nghệ sĩ nổi tiếng như ca sĩ Chi Dân, người mẫu An Tây, và tiktoker Cô gái có râu gần đây đã bị cơ quan điều tra tạm giữ hoặc khởi tố vì liên quan đến hành vi tổ chức, tàng trữ hoặc sử dụng trái phép chất ma túy."
+    }
 ]
