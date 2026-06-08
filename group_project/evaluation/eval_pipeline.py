@@ -12,8 +12,11 @@ Yêu cầu:
     5. Export results ra results.md
 """
 
+import os
 import json
 from pathlib import Path
+
+os.environ["DEEPEVAL_PER_ATTEMPT_TIMEOUT_SECONDS_OVERRIDE"] = "120"
 
 GOLDEN_DATASET_PATH = Path(__file__).parent / "golden_dataset.json"
 RESULTS_PATH = Path(__file__).parent / "results.md"
@@ -74,23 +77,26 @@ def evaluate_with_deepeval(rag_pipeline, golden_dataset: list[dict]) -> dict:
         "contextPrecision": 0.0,
     }
     
-    if test_cases:
-        for tc in test_cases:
-            for m in tc.metrics_data:
-                name = m.name.lower()
+    if results:
+        for tr in results:
+            # handle both .metrics and .metrics_data depending on deepeval version
+            metrics_list = getattr(tr, 'metrics_data', getattr(tr, 'metrics', []))
+            for m in metrics_list:
+                name = m.name.lower() if hasattr(m, 'name') else getattr(m, '__class__', '').__name__.lower()
+                score = getattr(m, 'score', 0.0)
                 if "faithfulness" in name:
-                    avg_scores["faithfulness"] += m.score
+                    avg_scores["faithfulness"] += score
                 elif "relevancy" in name:
-                    avg_scores["answerRelevance"] += m.score
+                    avg_scores["answerRelevance"] += score
                 elif "recall" in name:
-                    avg_scores["contextRecall"] += m.score
+                    avg_scores["contextRecall"] += score
                 elif "precision" in name:
-                    avg_scores["contextPrecision"] += m.score
+                    avg_scores["contextPrecision"] += score
                     
         for k in avg_scores:
-            avg_scores[k] /= len(test_cases)
+            avg_scores[k] /= len(results)
             
-    return {"metrics": avg_scores, "test_cases": test_cases}
+    return {"metrics": avg_scores, "results": results, "test_cases": test_cases}
 
 
 # =============================================================================
@@ -172,41 +178,49 @@ def evaluate_with_trulens(rag_pipeline, golden_dataset: list[dict]) -> dict:
 # A/B Comparison
 # =============================================================================
 
-def compare_configs(rag_pipeline, golden_dataset: list[dict]):
+def compare_configs(golden_dataset: list[dict]):
     """
-    So sánh A/B giữa ít nhất 2 configs.
+    So sánh A/B giữa 2 configs thực tế.
+    """
+    import sys
+    sys.path.append(str(Path(__file__).parent.parent.parent))
+    from src.task9_retrieval_pipeline import retrieve
+    from src.task10_generation import generate_with_citation
 
-    Gợi ý configs để so sánh:
-    - Config A: hybrid search + reranking
-    - Config B: dense-only (không reranking)
-    - Config C: hybrid search + PageIndex fallback
-    """
-    # TODO: Implement A/B comparison
-    #
-    # configs = {
-    #     "hybrid_rerank": {"use_reranking": True, "alpha": 0.5},
-    #     "dense_only": {"use_reranking": False, "alpha": 1.0},
-    # }
-    #
-    # results = {}
-    # for config_name, params in configs.items():
-    #     # Run eval with this config
-    #     ...
-    #     results[config_name] = scores
-    #
-    # return results
-    raise NotImplementedError("Implement compare_configs")
+    def config_a(query: str):
+        # BM25 + Semantic (không HyDE, không Reranking)
+        chunks = retrieve(query, top_k=5, use_reranking=False, use_hyde=False)
+        return generate_with_citation(query, chunks=chunks)
+
+    def config_b(query: str):
+        # Lexical + Semantic + HyDE + Reranking
+        chunks = retrieve(query, top_k=5, use_reranking=True, use_hyde=True)
+        return generate_with_citation(query, chunks=chunks)
+
+    print("\n[A/B Testing] Evaluating Config A (BM25 + Semantic)...")
+    res_a = evaluate_with_deepeval(config_a, golden_dataset)
+    score_a = sum(res_a["metrics"].values()) / max(len(res_a["metrics"]), 1)
+
+    print("\n[A/B Testing] Evaluating Config B (Lexical + Semantic + HyDE + Rerank)...")
+    res_b = evaluate_with_deepeval(config_b, golden_dataset)
+    score_b = sum(res_b["metrics"].values()) / max(len(res_b["metrics"]), 1)
+
+    ab_test = [
+        {"name": "Config A (BM25 + Semantic)", "score": score_a},
+        {"name": "Config B (Lexical + Semantic + HyDE + Rerank)", "score": score_b},
+    ]
+    return ab_test, res_b
 
 
 # =============================================================================
 # Export Results
 # =============================================================================
 
-def export_results(results: dict, comparison: dict):
+def export_results(results: dict, comparison: list[dict]):
     """Export evaluation results to results.md"""
     # Export to results.md
     content = "# RAG Evaluation Results\n\n"
-    content += "## Overall Scores\n\n"
+    content += "## Overall Scores (Config B)\n\n"
     content += "| Metric | Score |\n|--------|-------|\n"
     if "metrics" in results:
         for k, v in results["metrics"].items():
@@ -216,17 +230,24 @@ def export_results(results: dict, comparison: dict):
     
     # Export to results.json for the API
     worst_performers = []
-    if "test_cases" in results:
+    if "results" in results:
         # Sort by total score ascending
-        sorted_tc = sorted(results["test_cases"], key=lambda tc: sum([m.score for m in tc.metrics_data]))
-        for i, tc in enumerate(sorted_tc[:3]):
-            content += f"### {i+1}. {tc.input}\n"
-            content += f"- **Expected**: {tc.expected_output}\n"
-            content += f"- **Actual**: {tc.actual_output}\n\n"
+        def get_total_score(tr):
+            metrics_list = getattr(tr, 'metrics_data', getattr(tr, 'metrics', []))
+            return sum([getattr(m, 'score', 0) for m in metrics_list])
+            
+        sorted_tr = sorted(results["results"], key=get_total_score)
+        for i, tr in enumerate(sorted_tr[:3]):
+            tc_input = getattr(tr, 'input', getattr(tr, 'query', 'Unknown'))
+            tc_expected = getattr(tr, 'expected_output', 'Unknown')
+            tc_actual = getattr(tr, 'actual_output', 'Unknown')
+            content += f"### {i+1}. {tc_input}\n"
+            content += f"- **Expected**: {tc_expected}\n"
+            content += f"- **Actual**: {tc_actual}\n\n"
             worst_performers.append({
-                "query": tc.input,
-                "expected": tc.expected_output,
-                "actual": tc.actual_output,
+                "query": tc_input,
+                "expected": tc_expected,
+                "actual": tc_actual,
                 "issue": "Low score across metrics",
             })
 
@@ -235,15 +256,12 @@ def export_results(results: dict, comparison: dict):
     json_path = RESULTS_PATH.with_suffix(".json")
     json_data = {
         "metrics": results.get("metrics", {}),
-        "abTest": [
-            {"name": "Config A (BM25 + Semantic)", "score": 0.82},
-            {"name": "Config B (Lexical + Semantic + HyDE)", "score": 0.89}
-        ],
+        "abTest": comparison,
         "worstPerformers": worst_performers,
         "goldenDatasetCount": len(results.get("test_cases", []))
     }
     json_path.write_text(json.dumps(json_data, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"Results exported to {RESULTS_PATH} and {json_path}")
+    print(f"\nResults exported to {RESULTS_PATH} and {json_path}")
 
 
 if __name__ == "__main__":
@@ -254,7 +272,7 @@ if __name__ == "__main__":
     sys.path.append(str(Path(__file__).parent.parent.parent))
     from src.task10_generation import generate_with_citation
     
-    print("Running evaluation with DeepEval...")
-    results = evaluate_with_deepeval(generate_with_citation, golden_dataset)
-    export_results(results, {})
+    # Run the full A/B comparison and DeepEval metrics
+    ab_test_results, default_eval_results = compare_configs(golden_dataset)
+    export_results(default_eval_results, ab_test_results)
     print("Done!")

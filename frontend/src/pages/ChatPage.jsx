@@ -8,6 +8,7 @@ const ChatPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [sessionId, setSessionId] = useState(null);
     const [useHyDE, setUseHyDE] = useState(false);
+    const [useRerank, setUseRerank] = useState(true);
     const [topK, setTopK] = useState(5);
     const [threshold, setThreshold] = useState(0.5);
     const [searchMode, setSearchMode] = useState('Hybrid kết hợp');
@@ -35,7 +36,7 @@ const ChatPage = () => {
         setIsLoading(true);
 
         try {
-            const res = await realChat(userMsg, sessionId, topK, useHyDE, threshold, searchMode);
+            const res = await realChat(userMsg, sessionId, topK, useHyDE, useRerank, threshold, searchMode);
             if (res.session_id) setSessionId(res.session_id);
             setMessages(prev => [...prev, { 
                 role: 'assistant', 
@@ -112,6 +113,12 @@ const ChatPage = () => {
                         <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>HyDE</span>
                         <button onClick={() => setUseHyDE(!useHyDE)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: useHyDE ? 'var(--accent-color)' : 'var(--text-secondary)', display: 'flex', alignItems: 'center' }}>
                             {useHyDE ? <ToggleRight size={24} /> : <ToggleLeft size={24} />}
+                        </button>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--panel-bg)', padding: '6px 12px', borderRadius: '24px', border: '1px solid var(--panel-border)' }}>
+                        <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Rerank</span>
+                        <button onClick={() => setUseRerank(!useRerank)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: useRerank ? 'var(--accent-color)' : 'var(--text-secondary)', display: 'flex', alignItems: 'center' }}>
+                            {useRerank ? <ToggleRight size={24} /> : <ToggleLeft size={24} />}
                         </button>
                     </div>
                 </div>

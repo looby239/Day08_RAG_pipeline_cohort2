@@ -63,6 +63,7 @@ class GenerateRequest(BaseModel):
 class ChatRequest(BaseModel):
     query: str = Field(..., min_length=1, description="Question from the chatbot UI")
     useHyDE: bool = Field(False, description="Enable Hypothetical Document Embeddings")
+    useReranking: bool = Field(True, description="Enable Reranking")
     topK: int = Field(5, ge=1, le=20, description="Maximum number of source chunks")
     threshold: float = Field(0.3, ge=0.0, le=1.0, description="Minimum retrieval score")
     searchMode: str = Field(
@@ -341,13 +342,14 @@ def chat(
         request.threshold,
         request.searchMode,
         request.useHyDE,
+        request.useReranking,
         bool(x_openai_key),
         bool(x_qdrant_key),
     )
     method = request.searchMode.strip().lower()
     
     if method in {"hybrid", "hybrid kết hợp"}:
-        chunks = retrieve(request.query, top_k=request.topK, score_threshold=request.threshold, use_hyde=request.useHyDE, api_key=x_openai_key)
+        chunks = retrieve(request.query, top_k=request.topK, score_threshold=request.threshold, use_hyde=request.useHyDE, use_reranking=request.useReranking, api_key=x_openai_key)
     elif method in {"semantic", "semantic ngữ nghĩa"}:
         chunks = semantic_search(request.query, top_k=request.topK)
     elif method in {"lexical", "lexical từ khóa"}:
@@ -355,7 +357,7 @@ def chat(
     elif method in {"pageindex", "pageindex vectorless"}:
         chunks = pageindex_search(request.query, top_k=request.topK)
     else:
-        chunks = retrieve(request.query, top_k=request.topK, score_threshold=request.threshold, use_hyde=request.useHyDE, api_key=x_openai_key)
+        chunks = retrieve(request.query, top_k=request.topK, score_threshold=request.threshold, use_hyde=request.useHyDE, use_reranking=request.useReranking, api_key=x_openai_key)
 
     result = generate_with_citation(
         request.query, 

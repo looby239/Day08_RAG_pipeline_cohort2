@@ -12,13 +12,14 @@ const normalizeSource = (chunk, idx) => ({
     },
 });
 
-export const realChat = async (query, sessionId = null, topK = 5, useHyDE = false, threshold = 0.5, searchMode = "Hybrid kết hợp") => {
+export const realChat = async (query, sessionId = null, topK = 5, useHyDE = false, useRerank = true, threshold = 0.5, searchMode = "Hybrid kết hợp") => {
     const res = await fetch(`${API_BASE}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
             query: query,
             useHyDE: useHyDE,
+            useReranking: useRerank,
             topK: Number(topK),
             threshold: Number(threshold),
             searchMode: searchMode
