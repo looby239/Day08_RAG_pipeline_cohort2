@@ -106,19 +106,22 @@ def _extractive_answer(query: str, chunks: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def generate_with_citation(query: str, top_k: int = TOP_K) -> dict:
+def generate_with_citation(query: str, top_k: int = TOP_K, chunks: list[dict] | None = None, api_key: str | None = None) -> dict:
     """
     End-to-end RAG generation có citation.
 
     Returns:
         {'answer': str, 'sources': list[dict], 'retrieval_source': str}
     """
-    chunks = retrieve(query, top_k=top_k)
+    if chunks is None:
+        chunks = retrieve(query, top_k=top_k)
+        
     reordered = reorder_for_llm(chunks)
     context = format_context(reordered)
-    retrieval_source = chunks[0].get("source", "hybrid") if chunks else "none"
+    retrieval_source = chunks[0].get("source", "custom") if chunks else "none"
 
-    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         return {
             "answer": _extractive_answer(query, chunks),

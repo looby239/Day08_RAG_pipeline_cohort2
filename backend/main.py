@@ -227,6 +227,40 @@ def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
+@app.get("/api/stats", tags=["System"])
+def system_stats() -> dict[str, Any]:
+    try:
+        from src.task4_chunking_indexing import get_chroma_collection
+        collection = get_chroma_collection(create=False)
+        total_chunks = collection.count()
+        vector_status = "Hoạt động"
+    except Exception:
+        total_chunks = 0
+        vector_status = "Lỗi / Chưa khởi tạo"
+        
+    try:
+        from src.task9_retrieval_pipeline import RERANK_METHOD
+        reranker = RERANK_METHOD
+    except Exception:
+        reranker = "Unknown"
+        
+    # Count files in data/standardized
+    standardized_dir = PROJECT_ROOT / "data" / "standardized"
+    legal_count = 0
+    news_count = 0
+    if standardized_dir.exists():
+        legal_count = len(list((standardized_dir / "legal").rglob("*.md"))) if (standardized_dir / "legal").exists() else 0
+        news_count = len(list((standardized_dir / "news").rglob("*.md"))) if (standardized_dir / "news").exists() else 0
+        
+    return {
+        "vectorStatus": vector_status,
+        "legalDocs": legal_count,
+        "newsArticles": news_count,
+        "totalChunks": total_chunks,
+        "reranker": reranker
+    }
+
+
 @app.post("/api/search", response_model=SearchResponse, tags=["RAG"])
 def search(request: SearchRequest) -> SearchResponse:
     logger.info(
@@ -300,7 +334,25 @@ def chat(
         bool(x_openai_key),
         bool(x_qdrant_key),
     )
-    result = generate_with_citation(request.query, top_k=request.topK)
+    method = request.searchMode.strip().lower()
+    
+    if method in {"hybrid", "hybrid kết hợp"}:
+        chunks = retrieve(request.query, top_k=request.topK, score_threshold=request.threshold, use_hyde=request.useHyDE, api_key=x_openai_key)
+    elif method in {"semantic", "semantic ngữ nghĩa"}:
+        chunks = semantic_search(request.query, top_k=request.topK)
+    elif method in {"lexical", "lexical từ khóa"}:
+        chunks = lexical_search(request.query, top_k=request.topK)
+    elif method in {"pageindex", "pageindex vectorless"}:
+        chunks = pageindex_search(request.query, top_k=request.topK)
+    else:
+        chunks = retrieve(request.query, top_k=request.topK, score_threshold=request.threshold, use_hyde=request.useHyDE, api_key=x_openai_key)
+
+    result = generate_with_citation(
+        request.query, 
+        top_k=request.topK, 
+        chunks=chunks, 
+        api_key=x_openai_key
+    )
     sources = _with_ids(result.get("sources", []))
     logger.info("AI_CHAT_DONE query=%r sources=%s", request.query, len(sources))
     return ChatResponse(answer=result.get("answer", ""), sources=sources)
@@ -350,7 +402,7 @@ async def upload(file: UploadFile = File(...)) -> UploadResponse:
     logs.append("Extracting text from document...")
     extracted_text = _extract_text_from_upload(filename, content)
 
-    logs.append("Chunking text (Chunk size: 500, Overlap: 50)...")
+    logs.append("Chunking text and generating embeddings...")
     markdown_path = UPLOAD_STANDARDIZED_DIR / f"{Path(filename).stem}.md"
     markdown_path.write_text(
         f"# {Path(filename).stem}\n\n"
@@ -360,8 +412,14 @@ async def upload(file: UploadFile = File(...)) -> UploadResponse:
         encoding="utf-8",
     )
 
-    logs.append("Generating embeddings for chunks...")
-    logs.append("Saved to local corpus successfully.")
+    try:
+        from src.task4_chunking_indexing import index_single_document
+        num_chunks = index_single_document(extracted_text, filename)
+        logs.append(f"Generated {num_chunks} chunks and embeddings.")
+        logs.append("Saved to local corpus successfully.")
+    except Exception as exc:
+        logger.exception("AI_UPLOAD_INDEX_ERROR")
+        logs.append(f"Error during indexing: {exc}")
     logger.info("AI_UPLOAD_DONE filename=%r markdown=%r", filename, str(markdown_path))
 
     return UploadResponse(
@@ -385,6 +443,16 @@ def evaluation(
         bool(x_openai_key),
     )
     count = _golden_dataset_count()
+    
+    results_path = PROJECT_ROOT / "group_project" / "evaluation" / "results.json"
+    if results_path.exists():
+        try:
+            data = json.loads(results_path.read_text(encoding="utf-8"))
+            logger.info("AI_EVALUATION_DONE goldenDatasetCount=%s (from file)", count)
+            return EvaluationResponse(**data)
+        except Exception as e:
+            logger.warning("Failed to read evaluation results from %s: %s", results_path, e)
+
     response = EvaluationResponse(
         metrics=EvaluationMetricResponse(
             faithfulness=0.85,
@@ -406,5 +474,5 @@ def evaluation(
         ],
         goldenDatasetCount=count,
     )
-    logger.info("AI_EVALUATION_DONE goldenDatasetCount=%s", count)
+    logger.info("AI_EVALUATION_DONE goldenDatasetCount=%s (default data)", count)
     return response

@@ -51,21 +51,31 @@ VECTOR_STORE = "chromadb"
 # SHARED HELPERS (dùng lại ở Task 5, 6, 9)
 # =============================================================================
 
-@lru_cache(maxsize=1)
-def get_embedding_model():
-    """Load sentence-transformers model 1 lần (singleton)."""
-    from sentence_transformers import SentenceTransformer
-
-    return SentenceTransformer(EMBEDDING_MODEL)
-
-
 def embed_texts(texts: list[str]) -> list[list[float]]:
-    """Embed danh sách text -> list vector (normalize để dùng cosine)."""
-    model = get_embedding_model()
-    embs = model.encode(
-        texts, normalize_embeddings=True, show_progress_bar=len(texts) > 50
-    )
-    return [e.tolist() for e in embs]
+    """Embed danh sách text -> list vector (sử dụng OpenAI API)."""
+    import os
+    from dotenv import load_dotenv
+    load_dotenv()
+    from openai import OpenAI
+    
+    # Try to get key from env, otherwise it will try to get it from default config
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    
+    BATCH_SIZE = 100
+    all_embs = []
+    
+    for i in range(0, len(texts), BATCH_SIZE):
+        batch = texts[i:i+BATCH_SIZE]
+        # Xử lý list rỗng để tránh lỗi API
+        if not batch: continue
+        
+        response = client.embeddings.create(
+            input=batch,
+            model="text-embedding-3-small"
+        )
+        all_embs.extend([d.embedding for d in response.data])
+        
+    return all_embs
 
 
 def get_chroma_client():
@@ -86,7 +96,9 @@ def get_chroma_collection(create: bool = False):
         return client.create_collection(
             name=COLLECTION_NAME, metadata={"hnsw:space": "cosine"}
         )
-    return client.get_collection(COLLECTION_NAME)
+    return client.get_or_create_collection(
+        name=COLLECTION_NAME, metadata={"hnsw:space": "cosine"}
+    )
 
 
 # =============================================================================
@@ -158,6 +170,50 @@ def index_to_vectorstore(chunks: list[dict]):
     INDEX_DIR.mkdir(parents=True, exist_ok=True)
     slim = [{"content": c["content"], "metadata": c["metadata"]} for c in chunks]
     CHUNKS_JSON.write_text(json.dumps(slim, ensure_ascii=False), encoding="utf-8")
+
+
+def index_single_document(content: str, filename: str) -> int:
+    """Chunk, embed, and index a single document incrementally."""
+    doc_type = "legal" if "legal" in filename.lower() else ("news" if "news" in filename.lower() else "upload")
+    doc = {"content": content, "metadata": {"source": filename, "type": doc_type}}
+    
+    chunks = chunk_documents([doc])
+    if not chunks:
+        return 0
+        
+    chunks = embed_chunks(chunks)
+    collection = get_chroma_collection(create=False)
+    
+    current_count = collection.count()
+    ids, docs, metas, embs = [], [], [], []
+    for i, c in enumerate(chunks):
+        ids.append(f"chunk_inc_{current_count + i}")
+        docs.append(c["content"])
+        metas.append(c["metadata"])
+        embs.append(c["embedding"])
+        
+    # Chroma batch
+    BATCH = 1000
+    for s in range(0, len(ids), BATCH):
+        e = s + BATCH
+        collection.add(
+            ids=ids[s:e], documents=docs[s:e], metadatas=metas[s:e], embeddings=embs[s:e]
+        )
+        
+    # Update chunks.json
+    INDEX_DIR.mkdir(parents=True, exist_ok=True)
+    existing_chunks = []
+    if CHUNKS_JSON.exists():
+        try:
+            existing_chunks = json.loads(CHUNKS_JSON.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            pass
+            
+    slim = [{"content": c["content"], "metadata": c["metadata"]} for c in chunks]
+    existing_chunks.extend(slim)
+    CHUNKS_JSON.write_text(json.dumps(existing_chunks, ensure_ascii=False), encoding="utf-8")
+    
+    return len(chunks)
 
 
 def run_pipeline():

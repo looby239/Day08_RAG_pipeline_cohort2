@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BarChart2, ShieldAlert, Award, FileSpreadsheet } from 'lucide-react';
-import { mockEvaluation } from '../config/api';
+import { realEvaluation } from '../config/api';
 
 const EvaluationPage = () => {
     const [data, setData] = useState(null);
@@ -9,7 +9,17 @@ const EvaluationPage = () => {
     useEffect(() => {
         const load = async () => {
             try {
-                const res = await mockEvaluation();
+                const savedKeys = localStorage.getItem('rag_api_keys');
+                let deepevalKey = '';
+                let openaiKey = '';
+                if (savedKeys) {
+                    try {
+                        const parsed = JSON.parse(savedKeys);
+                        deepevalKey = parsed.deepeval || '';
+                        openaiKey = parsed.openai || '';
+                    } catch (e) {}
+                }
+                const res = await realEvaluation(deepevalKey, openaiKey);
                 setData(res);
             } catch (e) {
                 console.error(e);

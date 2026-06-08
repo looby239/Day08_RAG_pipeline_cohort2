@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { Terminal, UploadCloud, FileText, CheckCircle } from 'lucide-react';
-import { mockUpload } from '../config/api';
+import { realUpload } from '../config/api';
 
 const IngestionPage = () => {
     const [logs, setLogs] = useState([]);
@@ -40,11 +40,11 @@ const IngestionPage = () => {
         for (const file of files) {
             setLogs(prev => [...prev, `> Khởi tạo tiến trình tải lên cho: ${file.name}...`]);
             try {
-                const res = await mockUpload(file);
+                const res = await realUpload(file);
                 setLogs(prev => [...prev, ...res.logs.map(l => `> ${l}`), `> SUCCESS: ${res.message}`]);
                 setUploadedFiles(prev => [...prev, file]);
             } catch (error) {
-                setLogs(prev => [...prev, `> ERROR: Thất bại khi tải lên ${file.name}.`]);
+                setLogs(prev => [...prev, `> ERROR: Thất bại khi tải lên ${file.name}. ${error.message || ''}`]);
             }
         }
         setIsLoading(false);

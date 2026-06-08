@@ -22,6 +22,36 @@ except ImportError:
     from task8_pageindex_vectorless import pageindex_search
 
 
+def generate_hypothetical_document(query: str, api_key: str | None = None) -> str:
+    """Generate a hypothetical answer to improve semantic search (HyDE)."""
+    if not api_key:
+        api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        return ""
+    
+    try:
+        from openai import OpenAI
+        client = OpenAI(api_key=api_key)
+        model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+        prompt = (
+            f"Vui lòng viết một đoạn văn ngắn đóng vai trò là câu trả lời giả định cho câu hỏi sau. "
+            f"Viết dưới góc độ là một văn bản pháp luật hoặc bài báo thực tế chứa thông tin này. "
+            f"Không dùng từ ngữ mào đầu, chỉ đưa ra thông tin thực tế giả định.\n\n"
+            f"Câu hỏi: {query}"
+        )
+        response = client.chat.completions.create(
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7,
+            max_tokens=250,
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as exc:
+        print(f"HyDE Error: {exc}")
+        return ""
+
+
+
 SCORE_THRESHOLD = 0.3          # độ tin cậy hybrid (theo cosine dense) tối thiểu
 DEFAULT_TOP_K = 5
 RERANK_METHOD = "cross_encoder"
@@ -32,6 +62,8 @@ def retrieve(
     top_k: int = DEFAULT_TOP_K,
     score_threshold: float = SCORE_THRESHOLD,
     use_reranking: bool = True,
+    use_hyde: bool = False,
+    api_key: str | None = None,
 ) -> list[dict]:
     """
     Retrieval pipeline hoàn chỉnh với fallback.
@@ -39,8 +71,14 @@ def retrieve(
     Returns:
         List of {'content', 'score', 'metadata', 'source' in {'hybrid','pageindex'}}.
     """
-    dense = semantic_search(query, top_k=top_k * 2)
-    sparse = lexical_search(query, top_k=top_k * 2)
+    search_query = query
+    if use_hyde:
+        hyde_doc = generate_hypothetical_document(query, api_key)
+        if hyde_doc:
+            search_query = f"{query}\n{hyde_doc}"
+
+    dense = semantic_search(search_query, top_k=top_k * 2)
+    sparse = lexical_search(search_query, top_k=top_k * 2)
 
     # Độ tin cậy hybrid = cosine similarity cao nhất từ dense (thang 0..1, dễ ngưỡng hoá).
     confidence = dense[0]["score"] if dense else 0.0
