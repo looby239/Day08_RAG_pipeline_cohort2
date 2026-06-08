@@ -1,17 +1,137 @@
 [
   {
-    "question": "Hình phạt cho tội tàng trữ trái phép chất ma tuý theo Điều 249 Bộ luật Hình sự?",
-    "expected_answer": "Phạt tù từ 1 đến 5 năm đối với trường hợp tàng trữ từ 1g đến dưới 5g heroin hoặc cocaine, hoặc chất ma tuý khác với khối lượng tương đương.",
-    "expected_context": "Bộ luật Hình sự 2015, Điều 249"
+    "id": "legal-01",
+    "category": "legal",
+    "difficulty": "direct",
+    "question": "Quản lý người sử dụng trái phép chất ma túy có phải là biện pháp xử lý hành chính không?",
+    "expected_answer": "Không. Đây là biện pháp phòng ngừa nhằm giúp người sử dụng không tiếp tục sử dụng trái phép chất ma túy và phòng ngừa hành vi vi phạm pháp luật.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, Điều 23 khoản 1",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
   },
   {
-    "question": "Luật Phòng chống ma tuý 2021 quy định những hình thức cai nghiện nào?",
-    "expected_answer": "Cai nghiện tự nguyện tại gia đình, cai nghiện tự nguyện tại cộng đồng, cai nghiện tự nguyện tại cơ sở cai nghiện, và cai nghiện bắt buộc tại cơ sở cai nghiện.",
-    "expected_context": "Luật Phòng chống ma tuý 2021, Chương V"
+    "id": "legal-02",
+    "category": "legal",
+    "difficulty": "direct",
+    "question": "Thời hạn quản lý người sử dụng trái phép chất ma túy là bao lâu?",
+    "expected_answer": "Thời hạn quản lý là 01 năm kể từ ngày Chủ tịch Ủy ban nhân dân cấp xã ra quyết định quản lý.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, Điều 23 khoản 2",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
   },
   {
-    "question": "Danh mục các chất ma tuý thuộc nhóm I theo quy định pháp luật Việt Nam gồm những chất nào?",
-    "expected_answer": "Nhóm I gồm các chất ma tuý tuyệt đối cấm sử dụng trong y học và đời sống, bao gồm heroin, cocaine, methamphetamine, MDMA (ecstasy), cannabis (cần sa), và các chất tương tự.",
-    "expected_context": "Nghị định 57/2022/NĐ-CP, Phụ lục I"
+    "id": "legal-03",
+    "category": "legal",
+    "difficulty": "direct",
+    "question": "Người sử dụng trái phép chất ma túy có những trách nhiệm nào?",
+    "expected_answer": "Người sử dụng phải cung cấp đầy đủ, chính xác thông tin về hành vi sử dụng cho công an cấp xã nơi cư trú và chấp hành việc quản lý của Ủy ban nhân dân cấp xã.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, Điều 24",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "id": "legal-04",
+    "category": "legal",
+    "difficulty": "multi_fact",
+    "question": "Gia đình có trách nhiệm gì khi quản lý người sử dụng trái phép chất ma túy?",
+    "expected_answer": "Gia đình phải quản lý, giáo dục và ngăn chặn việc tiếp tục sử dụng; cung cấp thông tin cho công an cấp xã; ngăn hành vi gây mất trật tự; và phối hợp đưa người đó đi xét nghiệm chất ma túy.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, Điều 25 khoản 1",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "id": "legal-05",
+    "category": "legal",
+    "difficulty": "direct",
+    "question": "Luật quy định những biện pháp cai nghiện ma túy nào và được thực hiện ở đâu?",
+    "expected_answer": "Có cai nghiện tự nguyện và cai nghiện bắt buộc. Cai nghiện tự nguyện được thực hiện tại gia đình, cộng đồng hoặc cơ sở cai nghiện; cai nghiện bắt buộc được thực hiện tại cơ sở cai nghiện ma túy công lập.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, Điều 28",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "id": "legal-06",
+    "category": "legal",
+    "difficulty": "multi_fact",
+    "question": "Quy trình cai nghiện ma túy gồm những giai đoạn nào?",
+    "expected_answer": "Quy trình gồm tiếp nhận và phân loại; điều trị cắt cơn, giải độc và các bệnh liên quan; giáo dục, tư vấn, phục hồi hành vi và nhân cách; lao động trị liệu, học nghề; và chuẩn bị tái hòa nhập cộng đồng.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, Điều 29",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "id": "legal-07",
+    "category": "legal",
+    "difficulty": "direct",
+    "question": "Thời hạn cai nghiện ma túy tự nguyện tại gia đình hoặc cộng đồng là bao lâu?",
+    "expected_answer": "Thời hạn cai nghiện tự nguyện tại gia đình hoặc cộng đồng là từ đủ 06 tháng đến 12 tháng.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, Điều 30 khoản 2",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "id": "legal-08",
+    "category": "legal",
+    "difficulty": "direct",
+    "question": "Ai quyết định thành lập cơ sở cai nghiện ma túy công lập?",
+    "expected_answer": "Chủ tịch Ủy ban nhân dân cấp tỉnh quyết định thành lập cơ sở cai nghiện ma túy công lập.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, Điều 35 khoản 1",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "id": "legal-09",
+    "category": "legal",
+    "difficulty": "comparison",
+    "question": "Thời hạn quản lý sau cai nghiện tại nơi cư trú khác nhau thế nào giữa cai nghiện tự nguyện và cai nghiện bắt buộc đối với người trưởng thành?",
+    "expected_answer": "Người hoàn thành cai nghiện tự nguyện chịu quản lý sau cai nghiện 01 năm. Người đã chấp hành xong quyết định đưa vào cơ sở cai nghiện bắt buộc chịu quản lý 02 năm.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, Điều 40 khoản 1 và khoản 2",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "id": "legal-10",
+    "category": "legal",
+    "difficulty": "multi_fact",
+    "question": "Trong thời gian quản lý sau cai nghiện, người được quản lý có thể nhận những hỗ trợ xã hội nào?",
+    "expected_answer": "Người từ đủ 12 tuổi đến dưới 18 tuổi được hỗ trợ học văn hóa; người được quản lý còn có thể được hỗ trợ học nghề, vay vốn, tìm việc làm và tham gia hoạt động xã hội để hòa nhập cộng đồng.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, Điều 40 khoản 4",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "id": "news-01",
+    "category": "news",
+    "difficulty": "direct",
+    "question": "Andrea Aybar bị điều tra về những hành vi nào theo bài báo trong dữ liệu?",
+    "expected_answer": "Andrea Aybar bị khởi tố, bắt khẩn cấp để điều tra các hành vi tàng trữ và tổ chức sử dụng ma túy.",
+    "expected_context": "Ngôi Sao, bài Những nghệ sĩ Việt ngã ngựa vì ma túy",
+    "expected_sources": ["article_01.md"]
+  },
+  {
+    "id": "news-02",
+    "category": "news",
+    "difficulty": "direct",
+    "question": "Ca sĩ Chi Dân bị điều tra về những hành vi nào?",
+    "expected_answer": "Chi Dân bị khởi tố, bắt khẩn cấp để điều tra các hành vi tàng trữ và tổ chức sử dụng ma túy.",
+    "expected_context": "Ngôi Sao, bài Những nghệ sĩ Việt ngã ngựa vì ma túy",
+    "expected_sources": ["article_01.md"]
+  },
+  {
+    "id": "news-03",
+    "category": "news",
+    "difficulty": "direct",
+    "question": "Diễn viên Lệ Hằng bị khởi tố về tội gì và bị thu giữ bao nhiêu ma túy tổng hợp?",
+    "expected_answer": "Lệ Hằng bị khởi tố về tội mua bán trái phép chất ma túy; cơ quan chức năng thu giữ 0,7 gram ma túy tổng hợp.",
+    "expected_context": "Ngôi Sao, bài Những nghệ sĩ Việt ngã ngựa vì ma túy",
+    "expected_sources": ["article_01.md"]
+  },
+  {
+    "id": "news-04",
+    "category": "news",
+    "difficulty": "direct",
+    "question": "Tòa án tuyên phạt diễn viên Hữu Tín bao nhiêu năm tù và về tội gì?",
+    "expected_answer": "TAND quận 8 tuyên phạt Hữu Tín 7 năm 6 tháng tù về tội tổ chức sử dụng trái phép chất ma túy.",
+    "expected_context": "VnExpress, bài Diễn viên hài Hữu Tín: Sử dụng ma túy vì tò mò",
+    "expected_sources": ["article_05.md"]
+  },
+  {
+    "id": "news-05",
+    "category": "news",
+    "difficulty": "direct",
+    "question": "Hiệp Gà từng lĩnh án bao lâu và về tội gì?",
+    "expected_answer": "Năm 2007, Hiệp Gà lĩnh án hai năm tù về tội tàng trữ trái phép chất ma túy.",
+    "expected_context": "Ngôi Sao, bài Những nghệ sĩ Việt ngã ngựa vì ma túy",
+    "expected_sources": ["article_01.md"]
   }
 ]

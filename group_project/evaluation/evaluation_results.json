@@ -1,0 +1,659 @@
+{
+  "framework": "Offline deterministic proxy",
+  "config_a": {
+    "name": "hybrid_rerank",
+    "description": "Semantic + BM25 + RRF + Jina reranking",
+    "aggregate": {
+      "faithfulness": 0.9246,
+      "answer_relevance": 0.8201,
+      "context_recall": 0.9806,
+      "context_precision": 0.9467,
+      "average": 0.918
+    },
+    "cases": [
+      {
+        "id": "legal-01",
+        "question": "Quản lý người sử dụng trái phép chất ma túy có phải là biện pháp xử lý hành chính không?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "Quản lý người sử dụng trái phép chất ma túy là biện pháp phòng ngừa nhằm giúp người sử dụng trái phép chất ma túy không tiếp tục sử dụng trái phép chất ma túy, phòng ngừa các hành vi vi phạm pháp luật của họ. [luat-phong-chong-ma-tuy-2021.md]\n\nd) Người đang trong thời gian bị áp dụng biện pháp xử lý hành chính giáo dục tại xã, phường, thị trấn do có hành vi sử dụng trái phép chất ma túy; đang cai 14 CÔNG BÁO/Số 567 + 568/Ngày 30-4-2021 nghiện ma túy; đang điều trị nghiện các chất dạng thuốc phiện bằng thuốc thay thế; đang trong thời hạn quản lý sau cai nghiện ma túy. [luat-phong-chong-ma-tuy-2021.md]\n\na) Người sử dụng trái phép chất ma túy được xác định là người nghiện ma túy; b) Người sử dụng trái phép chất ma túy bị áp dụng biện pháp xử lý hành chính giáo dục tại xã, phường, thị trấn do có hành vi sử dụng trái phép chất ma túy; c) Người sử dụng trái phép chất ma túy bị áp dụng biện pháp xử lý hành chính đưa vào cơ sở giáo dục bắt buộc, đưa vào trường giáo dưỡng; d) Người sử dụng trái phép chất ma túy phải thi hà [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9178,
+          "answer_relevance": 0.975,
+          "context_recall": 0.9444,
+          "context_precision": 1.0
+        },
+        "average": 0.9593
+      },
+      {
+        "id": "legal-02",
+        "question": "Thời hạn quản lý người sử dụng trái phép chất ma túy là bao lâu?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "Quản lý người sử dụng trái phép chất ma túy là biện pháp phòng ngừa nhằm giúp người sử dụng trái phép chất ma túy không tiếp tục sử dụng trái phép chất ma túy, phòng ngừa các hành vi vi phạm pháp luật của họ. [luat-phong-chong-ma-tuy-2021.md]\n\nc) Người đang trong thời gian bị áp dụng biện pháp xử lý hành chính giáo dục tại xã, phường, thị trấn do có hành vi sử dụng trái phép chất ma túy hoặc trong thời hạn 01 năm kể từ ngày chấp hành xong biện pháp xử lý hành chính giáo dục tại xã, phường, thị trấn do có hành vi sử dụng trái phép chất ma túy mà bị phát hiện sử dụng trái phép chất ma túy; CÔNG BÁO/Số 567 + 568/Ngày 30-4-2021 17 d) Người đang trong thời gian [luat-phong-chong-ma-tuy-2021.md]\n\nđưa vào cơ sở cai nghiện bắt buộc chịu sự quản lý sau cai nghiện ma túy trong thời hạn 02 năm kể từ ngày chấp hành xong quyết định. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9306,
+          "answer_relevance": 0.7555,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "average": 0.9215
+      },
+      {
+        "id": "legal-03",
+        "question": "Người sử dụng trái phép chất ma túy có những trách nhiệm nào?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "quản lý người sử dụng trái phép chất ma túy 1. [luat-phong-chong-ma-tuy-2021.md]\n\nan toàn xã hội; d) Phối hợp với cơ quan có thẩm quyền đưa người sử dụng trái phép chất ma túy đi xét nghiệm chất ma túy trong cơ thể. [luat-phong-chong-ma-tuy-2021.md]\n\nđ) Người sử dụng trái phép chất ma túy trong danh sách quản lý chết, bị Tòa án tuyên bố là mất tích. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.8684,
+          "answer_relevance": 0.4929,
+          "context_recall": 0.963,
+          "context_precision": 1.0
+        },
+        "average": 0.8311
+      },
+      {
+        "id": "legal-04",
+        "question": "Gia đình có trách nhiệm gì khi quản lý người sử dụng trái phép chất ma túy?",
+        "category": "legal",
+        "difficulty": "multi_fact",
+        "answer": "quản lý người sử dụng trái phép chất ma túy 1. [luat-phong-chong-ma-tuy-2021.md]\n\nđ) Người sử dụng trái phép chất ma túy trong danh sách quản lý chết, bị Tòa án tuyên bố là mất tích. [luat-phong-chong-ma-tuy-2021.md]\n\nNội dung quản lý người sử dụng trái phép chất ma túy bao gồm: a) Tư vấn, động viên, giáo dục, giúp đỡ người sử dụng trái phép chất ma túy để họ không tiếp tục sử dụng trái phép chất ma túy; b) Xét nghiệm chất ma túy trong cơ thể; c) Ngăn chặn người sử dụng trái phép chất ma túy có hành vi gây mất trật tự, an toàn xã hội. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9038,
+          "answer_relevance": 0.6279,
+          "context_recall": 0.9706,
+          "context_precision": 1.0
+        },
+        "average": 0.8756
+      },
+      {
+        "id": "legal-05",
+        "question": "Luật quy định những biện pháp cai nghiện ma túy nào và được thực hiện ở đâu?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "Biện pháp cai nghiện ma túy bao gồm: a) Cai nghiện ma túy tự nguyện; b) Cai nghiện ma túy bắt buộc. [luat-phong-chong-ma-tuy-2021.md]\n\nCơ sở cai nghiện ma túy là cơ sở được thành lập để thực hiện đầy đủ quy trình cai nghiện theo quy định của Luật này, bao gồm cơ sở cai nghiện ma túy công lập và cơ sở cai nghiện ma túy tự nguyện. [luat-phong-chong-ma-tuy-2021.md]\n\nKể từ ngày Luật này có hiệu lực thi hành: a) Người đang thực hiện cai nghiện ma túy tự nguyện tại gia đình, cộng đồng hoặc tại cơ sở cai nghiện thì tiếp tục thực hiện cai nghiện ma túy tự nguyện đến hết thời hạn đã đăng ký theo quy định của Luật Phòng, chống ma túy số 23/2000/QH10 đã được sửa đổi, bổ sung một số điều theo Luật số 16/2008/QH12 và bị quản lý sau cai nghiện ma túy theo quy định của Luật này; [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9104,
+          "answer_relevance": 0.945,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "average": 0.9638
+      },
+      {
+        "id": "legal-06",
+        "question": "Quy trình cai nghiện ma túy gồm những giai đoạn nào?",
+        "category": "legal",
+        "difficulty": "multi_fact",
+        "answer": "Biện pháp cai nghiện ma túy bao gồm: a) Cai nghiện ma túy tự nguyện; b) Cai nghiện ma túy bắt buộc. [luat-phong-chong-ma-tuy-2021.md]\n\na) Tiếp nhận, phân loại; b) Điều trị cắt cơn, giải độc, điều trị các rối loạn tâm thần, điều trị các bệnh lý khác; c) Giáo dục, tư vấn, phục hồi hành vi, nhân cách; d) Lao động trị liệu, học nghề; đ) Chuẩn bị tái hòa nhập cộng đồng. [luat-phong-chong-ma-tuy-2021.md]\n\nCai nghiện ma túy tự nguyện tại cơ sở cai nghiện ma túy 1. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9107,
+          "answer_relevance": 0.6383,
+          "context_recall": 0.9474,
+          "context_precision": 1.0
+        },
+        "average": 0.8741
+      },
+      {
+        "id": "legal-07",
+        "question": "Thời hạn cai nghiện ma túy tự nguyện tại gia đình hoặc cộng đồng là bao lâu?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "Thời hạn cai nghiện ma túy tự nguyện tại gia đình, cộng đồng là từ đủ 06 tháng đến 12 tháng. [luat-phong-chong-ma-tuy-2021.md]\n\ncó thẩm quyền; c) Trong thời hạn 05 ngày làm việc kể từ ngày người cai nghiện ma túy sử dụng dịch vụ hoặc tự ý chấm dứt việc sử dụng dịch vụ hoặc hoàn thành dịch vụ phải thông báo cho Ủy ban nhân dân cấp xã nơi người đó đăng ký cai nghiện ma túy tự nguyện tại gia đình, cộng đồng. [luat-phong-chong-ma-tuy-2021.md]\n\nCai nghiện ma túy tự nguyện tại gia đình, cộng đồng 1. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.8958,
+          "answer_relevance": 0.9542,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "average": 0.9625
+      },
+      {
+        "id": "legal-08",
+        "question": "Ai quyết định thành lập cơ sở cai nghiện ma túy công lập?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "Cơ sở cai nghiện ma túy công lập do Chủ tịch Ủy ban nhân dân cấp tỉnh quyết định thành lập. [luat-phong-chong-ma-tuy-2021.md]\n\ncơ sở cai nghiện ma túy công lập và chế độ quản lý tại cơ sở cai nghiện ma túy công lập. [luat-phong-chong-ma-tuy-2021.md]\n\nBan hành theo thẩm quyền hoặc trình cơ quan nhà nước có thẩm quyền ban hành văn bản quy phạm pháp luật về phòng, chống ma túy. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.8864,
+          "answer_relevance": 1.0,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "average": 0.9716
+      },
+      {
+        "id": "legal-09",
+        "question": "Thời hạn quản lý sau cai nghiện tại nơi cư trú khác nhau thế nào giữa cai nghiện tự nguyện và cai nghiện bắt buộc đối với người trưởng thành?",
+        "category": "legal",
+        "difficulty": "comparison",
+        "answer": "Người đã hoàn thành cai nghiện ma túy tự nguyện, người đã hoàn thành điều trị nghiện các chất dạng thuốc phiện bằng thuốc thay thế, người từ đủ 12 tuổi đến dưới 18 tuổi đã chấp hành xong quyết định đưa vào cơ sở cai nghiện bắt buộc chịu sự quản lý sau cai nghiện ma túy trong thời hạn 01 năm kể từ ngày hoàn thành việc cai nghiện hoặc chấp hành xong quyết định. [luat-phong-chong-ma-tuy-2021.md]\n\nnghiện ma túy bắt buộc Người từ đủ 14 tuổi đến dưới 18 tuổi đang cai nghiện ma túy bắt buộc mà bị phát hiện thực hiện hành vi phạm tội trước hoặc trong thời gian chấp hành quyết định cai nghiện ma túy bắt buộc và bị Tòa án xử phạt tù nhưng không được hưởng án treo thì được miễn chấp hành thời gian còn lại trong quyết định đưa vào cơ sở cai nghiện bắt buộc. [luat-phong-chong-ma-tuy-2021.md]\n\nđưa vào cơ sở cai nghiện bắt buộc chịu sự quản lý sau cai nghiện ma túy trong thời hạn 02 năm kể từ ngày chấp hành xong quyết định. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9333,
+          "answer_relevance": 0.7905,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "average": 0.9309
+      },
+      {
+        "id": "legal-10",
+        "question": "Trong thời gian quản lý sau cai nghiện, người được quản lý có thể nhận những hỗ trợ xã hội nào?",
+        "category": "legal",
+        "difficulty": "multi_fact",
+        "answer": "a) Hỗ trợ học văn hóa đối với người từ đủ 12 tuổi đến dưới 18 tuổi; b) Hỗ trợ học nghề, vay vốn, tìm việc làm và tham gia các hoạt động xã hội để hòa nhập cộng đồng. [luat-phong-chong-ma-tuy-2021.md]\n\nđưa vào cơ sở cai nghiện bắt buộc chịu sự quản lý sau cai nghiện ma túy trong thời hạn 02 năm kể từ ngày chấp hành xong quyết định. [luat-phong-chong-ma-tuy-2021.md]\n\na) Động viên, giúp đỡ người nghiện ma túy; b) Phối hợp với cơ quan, tổ chức, đơn vị có liên quan hỗ trợ người nghiện ma túy trong quá trình cai nghiện ma túy, quản lý sau cai nghiện ma túy và hòa nhập cộng đồng. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9286,
+          "answer_relevance": 0.8431,
+          "context_recall": 0.9333,
+          "context_precision": 1.0
+        },
+        "average": 0.9263
+      },
+      {
+        "id": "news-01",
+        "question": "Andrea Aybar bị điều tra về những hành vi nào theo bài báo trong dữ liệu?",
+        "category": "news",
+        "difficulty": "direct",
+        "answer": "Hôm 14/11, người mẫu kiêm diễn viên Andrea Aybar , tên tiếng Việt là Nguyễn Thị An, bị Công an TP HCM khởi tố, bắt khẩn cấp để điều tra các hành vi Tàng trữ, Tổ chức sử dụng ma túy. [article_01.md]\n\nAndrea Aybar thường được gọi bằng biệt danh An Tây, sinh năm 1995, sống ở Việt Nam từ nhỏ dù mang quốc tịch Tây Ban Nha. [article_01.md]\n\nAndrea từng chia sẻ khi nhìn lại quá khứ bước vào showbiz từ khi mới 14-15 tuổi, cô không biết nên tiếc nuối hay tự hào vì những gì mình đã có. [article_01.md]",
+        "retrieved_sources": [
+          "article_01.md",
+          "article_01.md",
+          "article_01.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "article_02.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9744,
+          "answer_relevance": 0.8,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "average": 0.9436
+      },
+      {
+        "id": "news-02",
+        "question": "Ca sĩ Chi Dân bị điều tra về những hành vi nào?",
+        "category": "news",
+        "difficulty": "direct",
+        "answer": "Ca sĩ Chi Dân vừa bị Công an TP HCM khởi tố, bắt khẩn cấp để điều tra các hành vi Tàng trữ, Tổ chức sử dụng ma túy, hôm 14/11. [article_01.md]\n\nCa sĩ Chi Dân tên thật Nguyễn Trung Hiếu, sinh năm 1989 ở Kiên Giang, chủ yếu theo đuổi dòng nhạc pop ballad, với một số bài hit như Mất trí nhớ, Điều anh biết, 1234 ... [article_01.md]\n\nDựa vào những hình xăm trên tay, khán giả đồn đoán Chi Dân liên quan vụ việc. [article_01.md]",
+        "retrieved_sources": [
+          "article_01.md",
+          "article_01.md",
+          "article_01.md",
+          "article_01.md",
+          "article_04.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9718,
+          "answer_relevance": 1.0,
+          "context_recall": 1.0,
+          "context_precision": 0.8
+        },
+        "average": 0.9429
+      },
+      {
+        "id": "news-03",
+        "question": "Diễn viên Lệ Hằng bị khởi tố về tội gì và bị thu giữ bao nhiêu ma túy tổng hợp?",
+        "category": "news",
+        "difficulty": "direct",
+        "answer": "Diễn viên Lệ Hằng từng nổi tiếng với vai Hoài 'Thát-chơ' trong phim Xin hãy tin em , bị khởi tố về tội Mua bán trái phép chất ma túy . [article_01.md]\n\nLệ Hằng được đạo diễn Đỗ Thanh Hải phát hiện từ khi còn học trong trường Sân khấu - Điện ảnh Hà Nội. [article_01.md]\n\nĐAN THUẦN TTO - Ngày 17-11, Viện kiểm sát nhân dân quận 8 (TP.HCM) đã hoàn tất cáo trạng truy tố Trần Hữu Tín (diễn viên Hữu Tín) ra Tòa án nhân dân quận 8 để xét xử về tội tổ chức sử dụng trái phép chất ma túy. [article_03.md]",
+        "retrieved_sources": [
+          "article_01.md",
+          "article_01.md",
+          "article_03.md",
+          "article_01.md",
+          "article_02.md"
+        ],
+        "scores": {
+          "faithfulness": 0.96,
+          "answer_relevance": 0.6367,
+          "context_recall": 0.95,
+          "context_precision": 1.0
+        },
+        "average": 0.8867
+      },
+      {
+        "id": "news-04",
+        "question": "Tòa án tuyên phạt diễn viên Hữu Tín bao nhiêu năm tù và về tội gì?",
+        "category": "news",
+        "difficulty": "direct",
+        "answer": "Diễn viên Hữu Tín bị bắt hồi tháng 6/2022 vì liên quan đến ma túy. [article_01.md]\n\nTrưa 28/4, sau nửa ngày xét xử, TAND quận 8 tuyên phạt Trần Hữu Tín 7 năm 6 tháng tù về tội Tổ chức sử dụng trái phép chất ma túy . [article_05.md]\n\nĐAN THUẦN TTO - Ngày 17-11, Viện kiểm sát nhân dân quận 8 (TP.HCM) đã hoàn tất cáo trạng truy tố Trần Hữu Tín (diễn viên Hữu Tín) ra Tòa án nhân dân quận 8 để xét xử về tội tổ chức sử dụng trái phép chất ma túy. [article_03.md]",
+        "retrieved_sources": [
+          "article_01.md",
+          "article_05.md",
+          "article_03.md",
+          "article_01.md",
+          "article_05.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9333,
+          "answer_relevance": 1.0,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "average": 0.9833
+      },
+      {
+        "id": "news-05",
+        "question": "Hiệp Gà từng lĩnh án bao lâu và về tội gì?",
+        "category": "news",
+        "difficulty": "direct",
+        "answer": "Năm 2007, Hiệp Gà lĩnh án hai năm tù về tội tàng trữ trái phép chất ma túy. [article_01.md]\n\nCăn phòng trọ của Hiệp 'Gà' hồi còn ở Hào Nam. [article_04.md]\n\nMột phần vì phải đỡ đần gia đình, một phần vì phải \"nuôi\" những cơn nghiện từ nhiều năm nay, Hiệp là nghệ sĩ có đời sống vật chất khó khăn nhất trong số những diễn viên hài của sân khấu “Gặp nhau cuối tuần”. [article_04.md]",
+        "retrieved_sources": [
+          "article_01.md",
+          "article_04.md",
+          "article_04.md",
+          "article_04.md",
+          "article_04.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9444,
+          "answer_relevance": 0.8429,
+          "context_recall": 1.0,
+          "context_precision": 0.4
+        },
+        "average": 0.7968
+      }
+    ]
+  },
+  "config_b": {
+    "name": "dense_only",
+    "description": "Semantic search only, no fusion or reranking",
+    "aggregate": {
+      "faithfulness": 0.9108,
+      "answer_relevance": 0.5778,
+      "context_recall": 0.7273,
+      "context_precision": 0.7867,
+      "average": 0.7507
+    },
+    "cases": [
+      {
+        "id": "legal-01",
+        "question": "Quản lý người sử dụng trái phép chất ma túy có phải là biện pháp xử lý hành chính không?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "đ) Phòng, chống thẩm lậu ma túy vào cơ sở; e) Trong thời hạn 05 ngày làm việc kể từ ngày người cai nghiện ma túy tự nguyện được tiếp nhận hoặc tự ý chấm dứt việc sử dụng dịch vụ hoặc hoàn thành quy trình cai nghiện ma túy phải thông báo cho Ủy ban nhân dân cấp xã nơi người đó đăng ký cai nghiện ma túy tự nguyện. [luat-phong-chong-ma-tuy-2021.md]\n\nĐào tạo, bồi dưỡng người làm công tác điều tra, đấu tranh phòng, chống tội phạm về ma túy. [luat-phong-chong-ma-tuy-2021.md]\n\na) Người sử dụng trái phép chất ma túy được xác định là người nghiện ma túy; b) Người sử dụng trái phép chất ma túy bị áp dụng biện pháp xử lý hành chính giáo dục tại xã, phường, thị trấn do có hành vi sử dụng trái phép chất ma túy; c) Người sử dụng trái phép chất ma túy bị áp dụng biện pháp xử lý hành chính đưa vào cơ sở giáo dục bắt buộc, đưa vào trường giáo dưỡng; d) Người sử dụng trái phép chất ma túy phải thi hà [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.931,
+          "answer_relevance": 0.8077,
+          "context_recall": 0.7222,
+          "context_precision": 1.0
+        },
+        "average": 0.8652
+      },
+      {
+        "id": "legal-02",
+        "question": "Thời hạn quản lý người sử dụng trái phép chất ma túy là bao lâu?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "Nội dung quản lý người sử dụng trái phép chất ma túy bao gồm: a) Tư vấn, động viên, giáo dục, giúp đỡ người sử dụng trái phép chất ma túy để họ không tiếp tục sử dụng trái phép chất ma túy; b) Xét nghiệm chất ma túy trong cơ thể; c) Ngăn chặn người sử dụng trái phép chất ma túy có hành vi gây mất trật tự, an toàn xã hội. [luat-phong-chong-ma-tuy-2021.md]\n\nđưa vào cơ sở cai nghiện bắt buộc chịu sự quản lý sau cai nghiện ma túy trong thời hạn 02 năm kể từ ngày chấp hành xong quyết định. [luat-phong-chong-ma-tuy-2021.md]\n\nXét nghiệm chất ma túy trong cơ thể được thực hiện đối với người thuộc trường hợp sau đây: a) Người bị phát hiện sử dụng trái phép chất ma túy; b) Người mà cơ quan, người có thẩm quyền có căn cứ cho rằng có hành vi sử dụng trái phép chất ma túy; c) Người sử dụng trái phép chất ma túy đang trong thời hạn quản lý; [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.925,
+          "answer_relevance": 0.7318,
+          "context_recall": 0.5789,
+          "context_precision": 1.0
+        },
+        "average": 0.8089
+      },
+      {
+        "id": "legal-03",
+        "question": "Người sử dụng trái phép chất ma túy có những trách nhiệm nào?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "Nội dung quản lý người sử dụng trái phép chất ma túy bao gồm: a) Tư vấn, động viên, giáo dục, giúp đỡ người sử dụng trái phép chất ma túy để họ không tiếp tục sử dụng trái phép chất ma túy; b) Xét nghiệm chất ma túy trong cơ thể; c) Ngăn chặn người sử dụng trái phép chất ma túy có hành vi gây mất trật tự, an toàn xã hội. [luat-phong-chong-ma-tuy-2021.md]\n\nXét nghiệm chất ma túy trong cơ thể được thực hiện đối với người thuộc trường hợp sau đây: a) Người bị phát hiện sử dụng trái phép chất ma túy; b) Người mà cơ quan, người có thẩm quyền có căn cứ cho rằng có hành vi sử dụng trái phép chất ma túy; c) Người sử dụng trái phép chất ma túy đang trong thời hạn quản lý; [luat-phong-chong-ma-tuy-2021.md]\n\nđ) Phòng, chống thẩm lậu ma túy vào cơ sở; e) Trong thời hạn 05 ngày làm việc kể từ ngày người cai nghiện ma túy tự nguyện được tiếp nhận hoặc tự ý chấm dứt việc sử dụng dịch vụ hoặc hoàn thành quy trình cai nghiện ma túy phải thông báo cho Ủy ban nhân dân cấp xã nơi người đó đăng ký cai nghiện ma túy tự nguyện. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9485,
+          "answer_relevance": 0.6762,
+          "context_recall": 0.7778,
+          "context_precision": 1.0
+        },
+        "average": 0.8506
+      },
+      {
+        "id": "legal-04",
+        "question": "Gia đình có trách nhiệm gì khi quản lý người sử dụng trái phép chất ma túy?",
+        "category": "legal",
+        "difficulty": "multi_fact",
+        "answer": "đ) Phòng, chống thẩm lậu ma túy vào cơ sở; e) Trong thời hạn 05 ngày làm việc kể từ ngày người cai nghiện ma túy tự nguyện được tiếp nhận hoặc tự ý chấm dứt việc sử dụng dịch vụ hoặc hoàn thành quy trình cai nghiện ma túy phải thông báo cho Ủy ban nhân dân cấp xã nơi người đó đăng ký cai nghiện ma túy tự nguyện. [luat-phong-chong-ma-tuy-2021.md]\n\nd) Người đang trong thời gian bị áp dụng biện pháp xử lý hành chính giáo dục tại xã, phường, thị trấn do có hành vi sử dụng trái phép chất ma túy; đang cai 14 CÔNG BÁO/Số 567 + 568/Ngày 30-4-2021 nghiện ma túy; đang điều trị nghiện các chất dạng thuốc phiện bằng thuốc thay thế; đang trong thời hạn quản lý sau cai nghiện ma túy. [luat-phong-chong-ma-tuy-2021.md]\n\nNội dung quản lý người sử dụng trái phép chất ma túy bao gồm: a) Tư vấn, động viên, giáo dục, giúp đỡ người sử dụng trái phép chất ma túy để họ không tiếp tục sử dụng trái phép chất ma túy; b) Xét nghiệm chất ma túy trong cơ thể; c) Ngăn chặn người sử dụng trái phép chất ma túy có hành vi gây mất trật tự, an toàn xã hội. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9533,
+          "answer_relevance": 0.6941,
+          "context_recall": 0.8529,
+          "context_precision": 1.0
+        },
+        "average": 0.8751
+      },
+      {
+        "id": "legal-05",
+        "question": "Luật quy định những biện pháp cai nghiện ma túy nào và được thực hiện ở đâu?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "Cơ sở cai nghiện ma túy là cơ sở được thành lập để thực hiện đầy đủ quy trình cai nghiện theo quy định của Luật này, bao gồm cơ sở cai nghiện ma túy công lập và cơ sở cai nghiện ma túy tự nguyện. [luat-phong-chong-ma-tuy-2021.md]\n\nKể từ ngày Luật này có hiệu lực thi hành: a) Người đang thực hiện cai nghiện ma túy tự nguyện tại gia đình, cộng đồng hoặc tại cơ sở cai nghiện thì tiếp tục thực hiện cai nghiện ma túy tự nguyện đến hết thời hạn đã đăng ký theo quy định của Luật Phòng, chống ma túy số 23/2000/QH10 đã được sửa đổi, bổ sung một số điều theo Luật số 16/2008/QH12 và bị quản lý sau cai nghiện ma túy theo quy định của Luật này; [luat-phong-chong-ma-tuy-2021.md]\n\nThực hiện việc nghiên cứu thuốc và phương pháp cai nghiện ma túy; cấp, thu hồi giấy phép lưu hành thuốc, phương pháp cai nghiện ma túy; hỗ trợ về người, chuyên môn kỹ thuật y tế để cai nghiện ma túy. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.939,
+          "answer_relevance": 0.8371,
+          "context_recall": 0.8824,
+          "context_precision": 1.0
+        },
+        "average": 0.9146
+      },
+      {
+        "id": "legal-06",
+        "question": "Quy trình cai nghiện ma túy gồm những giai đoạn nào?",
+        "category": "legal",
+        "difficulty": "multi_fact",
+        "answer": "Năm 2007, Hiệp Gà lĩnh án hai năm tù về tội tàng trữ trái phép chất ma túy. [article_01.md]\n\nNếu từ giã được chất trắng, Hiệp \"Gà\" vẫn được chờ đợi với hoa và những lời chúc mừng từ khán giả. [article_04.md]\n\nCai nghiện ma túy tự nguyện tại cơ sở cai nghiện ma túy 1. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "article_01.md",
+          "article_04.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "article_04.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.8,
+          "answer_relevance": 0.1571,
+          "context_recall": 0.1842,
+          "context_precision": 0.4
+        },
+        "average": 0.3853
+      },
+      {
+        "id": "legal-07",
+        "question": "Thời hạn cai nghiện ma túy tự nguyện tại gia đình hoặc cộng đồng là bao lâu?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "Trong thời hạn 01 ngày làm việc kể từ ngày hết thời hạn đọc hồ sơ, cơ quan, người đã lập hồ sơ gửi hồ sơ cho Trưởng phòng Phòng Lao động - Thương binh và CÔNG BÁO/Số 567 + 568/Ngày 30-4-2021 23 [luat-phong-chong-ma-tuy-2021.md]\n\ncơ sở cai nghiện ma túy công lập và chế độ quản lý tại cơ sở cai nghiện ma túy công lập. [luat-phong-chong-ma-tuy-2021.md]\n\nThời hạn cai nghiện ma túy tự nguyện tại gia đình, cộng đồng là từ đủ 06 tháng đến 12 tháng. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9038,
+          "answer_relevance": 0.8783,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "average": 0.9455
+      },
+      {
+        "id": "legal-08",
+        "question": "Ai quyết định thành lập cơ sở cai nghiện ma túy công lập?",
+        "category": "legal",
+        "difficulty": "direct",
+        "answer": "cơ sở cai nghiện ma túy công lập và chế độ quản lý tại cơ sở cai nghiện ma túy công lập. [luat-phong-chong-ma-tuy-2021.md]\n\nCơ sở cai nghiện ma túy công lập do Chủ tịch Ủy ban nhân dân cấp tỉnh quyết định thành lập. [luat-phong-chong-ma-tuy-2021.md]\n\nCơ sở cai nghiện ma túy là cơ sở được thành lập để thực hiện đầy đủ quy trình cai nghiện theo quy định của Luật này, bao gồm cơ sở cai nghiện ma túy công lập và cơ sở cai nghiện ma túy tự nguyện. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.8718,
+          "answer_relevance": 1.0,
+          "context_recall": 1.0,
+          "context_precision": 1.0
+        },
+        "average": 0.9679
+      },
+      {
+        "id": "legal-09",
+        "question": "Thời hạn quản lý sau cai nghiện tại nơi cư trú khác nhau thế nào giữa cai nghiện tự nguyện và cai nghiện bắt buộc đối với người trưởng thành?",
+        "category": "legal",
+        "difficulty": "comparison",
+        "answer": "Người nghiện ma túy từ đủ 12 tuổi đến dưới 18 tuổi bị đưa vào cơ sở cai nghiện bắt buộc khi thuộc một trong các trường hợp sau đây: a) Không đăng ký, không thực hiện hoặc tự ý chấm dứt cai nghiện ma túy tự nguyện; b) Trong thời gian cai nghiện ma túy tự nguyện bị phát hiện sử dụng trái phép chất ma túy; [luat-phong-chong-ma-tuy-2021.md]\n\nChúng tôi cũng không biết Hiệp nghiện hay không. [article_04.md]\n\nCơ sở cai nghiện ma túy có trách nhiệm cấp giấy xác nhận hoàn thành cai nghiện ma túy tự nguyện cho người cai nghiện ma túy. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "article_04.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.8772,
+          "answer_relevance": 0.4697,
+          "context_recall": 0.76,
+          "context_precision": 0.8
+        },
+        "average": 0.7267
+      },
+      {
+        "id": "legal-10",
+        "question": "Trong thời gian quản lý sau cai nghiện, người được quản lý có thể nhận những hỗ trợ xã hội nào?",
+        "category": "legal",
+        "difficulty": "multi_fact",
+        "answer": "đ) Phòng, chống thẩm lậu ma túy vào cơ sở; e) Trong thời hạn 05 ngày làm việc kể từ ngày người cai nghiện ma túy tự nguyện được tiếp nhận hoặc tự ý chấm dứt việc sử dụng dịch vụ hoặc hoàn thành quy trình cai nghiện ma túy phải thông báo cho Ủy ban nhân dân cấp xã nơi người đó đăng ký cai nghiện ma túy tự nguyện. [luat-phong-chong-ma-tuy-2021.md]\n\ngửi ngay kết quả đến cơ quan đề nghị, người được xác định tình trạng nghiện ma túy. [luat-phong-chong-ma-tuy-2021.md]\n\na) Tiếp nhận người nghiện ma túy vào cai nghiện ma túy tự nguyện phù hợp với khả năng tiếp nhận của cơ sở cai nghiện; b) Người đứng đầu cơ sở cai nghiện ma túy công lập được quyết định áp dụng các biện pháp phù hợp để quản lý, giáo dục, chữa trị cho người cai nghiện ma túy. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "article_01.md",
+          "luat-phong-chong-ma-tuy-2021.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9231,
+          "answer_relevance": 0.3712,
+          "context_recall": 0.4,
+          "context_precision": 1.0
+        },
+        "average": 0.6736
+      },
+      {
+        "id": "news-01",
+        "question": "Andrea Aybar bị điều tra về những hành vi nào theo bài báo trong dữ liệu?",
+        "category": "news",
+        "difficulty": "direct",
+        "answer": "Trước đó bị cáo đi chơi với người đàn ông không rõ lai lịch tên Endy, người này đã nhét ma túy vào tay mình nên cầm mang về phòng. [article_05.md]\n\nĐào tạo, bồi dưỡng người làm công tác chuyên trách phòng, chống tội phạm về ma túy của Bộ đội Biên phòng và Cảnh sát biển Việt Nam. [luat-phong-chong-ma-tuy-2021.md]\n\nTrong thời hạn 01 ngày làm việc kể từ ngày hết thời hạn đọc hồ sơ, cơ quan, người đã lập hồ sơ gửi hồ sơ cho Trưởng phòng Phòng Lao động - Thương binh và CÔNG BÁO/Số 567 + 568/Ngày 30-4-2021 23 [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "article_05.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "article_01.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9189,
+          "answer_relevance": 0.125,
+          "context_recall": 0.4444,
+          "context_precision": 0.4
+        },
+        "average": 0.4721
+      },
+      {
+        "id": "news-02",
+        "question": "Ca sĩ Chi Dân bị điều tra về những hành vi nào?",
+        "category": "news",
+        "difficulty": "direct",
+        "answer": "Ca sĩ Chi Dân vừa bị Công an TP HCM khởi tố, bắt khẩn cấp để điều tra các hành vi Tàng trữ, Tổ chức sử dụng ma túy, hôm 14/11. [article_01.md]\n\nNếu từ giã được chất trắng, Hiệp \"Gà\" vẫn được chờ đợi với hoa và những lời chúc mừng từ khán giả. [article_04.md]\n\nTrước đó bị cáo đi chơi với người đàn ông không rõ lai lịch tên Endy, người này đã nhét ma túy vào tay mình nên cầm mang về phòng. [article_05.md]",
+        "retrieved_sources": [
+          "article_01.md",
+          "article_04.md",
+          "article_05.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "article_01.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9412,
+          "answer_relevance": 1.0,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "average": 0.8853
+      },
+      {
+        "id": "news-03",
+        "question": "Diễn viên Lệ Hằng bị khởi tố về tội gì và bị thu giữ bao nhiêu ma túy tổng hợp?",
+        "category": "news",
+        "difficulty": "direct",
+        "answer": "Diễn viên Lệ Hằng từng nổi tiếng với vai Hoài 'Thát-chơ' trong phim Xin hãy tin em , bị khởi tố về tội Mua bán trái phép chất ma túy . [article_01.md]\n\nDiễn viên Hữu Tín bị bắt hồi tháng 6/2022 vì liên quan đến ma túy. [article_01.md]\n\nThực ra, vợ chồng thì thế nào chẳng có lúc nóng lúc lạnh”. [article_04.md]",
+        "retrieved_sources": [
+          "article_01.md",
+          "article_01.md",
+          "article_04.md",
+          "article_05.md",
+          "article_01.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9348,
+          "answer_relevance": 0.6367,
+          "context_recall": 0.95,
+          "context_precision": 0.6
+        },
+        "average": 0.7804
+      },
+      {
+        "id": "news-04",
+        "question": "Tòa án tuyên phạt diễn viên Hữu Tín bao nhiêu năm tù và về tội gì?",
+        "category": "news",
+        "difficulty": "direct",
+        "answer": "dân, trong phạm vi nhiệm vụ, quyền hạn của mình, chủ trì, phối hợp với cơ quan, tổ chức có liên quan thực hiện các hoạt động phòng ngừa, ngăn chặn và đấu tranh chống tội phạm về ma túy. [luat-phong-chong-ma-tuy-2021.md]\n\nHôm 14/11, người mẫu kiêm diễn viên Andrea Aybar , tên tiếng Việt là Nguyễn Thị An, bị Công an TP HCM khởi tố, bắt khẩn cấp để điều tra các hành vi Tàng trữ, Tổ chức sử dụng ma túy. [article_01.md]\n\nTrong các khu quy định tại khoản 2 Điều này phải bố trí khu riêng cho nam giới và khu riêng cho nữ giới. [luat-phong-chong-ma-tuy-2021.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "article_01.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "article_05.md",
+          "article_05.md"
+        ],
+        "scores": {
+          "faithfulness": 0.9114,
+          "answer_relevance": 0.2824,
+          "context_recall": 1.0,
+          "context_precision": 0.6
+        },
+        "average": 0.6985
+      },
+      {
+        "id": "news-05",
+        "question": "Hiệp Gà từng lĩnh án bao lâu và về tội gì?",
+        "category": "news",
+        "difficulty": "direct",
+        "answer": "ngày nhận được thông báo. [luat-phong-chong-ma-tuy-2021.md]\n\nTrong thời hạn 01 ngày làm việc kể từ ngày hết thời hạn đọc hồ sơ, cơ quan, người đã lập hồ sơ gửi hồ sơ cho Trưởng phòng Phòng Lao động - Thương binh và CÔNG BÁO/Số 567 + 568/Ngày 30-4-2021 23 [luat-phong-chong-ma-tuy-2021.md]\n\nVào giữa tháng 5, Phi cùng một số người bạn đi hát karaoke trên địa bàn quận 5. [article_03.md]",
+        "retrieved_sources": [
+          "luat-phong-chong-ma-tuy-2021.md",
+          "luat-phong-chong-ma-tuy-2021.md",
+          "article_03.md",
+          "article_04.md",
+          "article_01.md"
+        ],
+        "scores": {
+          "faithfulness": 0.8824,
+          "answer_relevance": 0.0,
+          "context_recall": 0.3571,
+          "context_precision": 0.4
+        },
+        "average": 0.4099
+      }
+    ]
+  }
+}
