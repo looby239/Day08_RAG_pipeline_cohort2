@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search, Info, LayoutGrid, List } from 'lucide-react';
-import { mockRetrieval } from '../config/api';
+import { realSearch } from '../config/api';
 
 const RetrievalPage = () => {
     const [query, setQuery] = useState('');
@@ -15,7 +15,7 @@ const RetrievalPage = () => {
         
         setIsLoading(true);
         try {
-            const res = await mockRetrieval(query, method);
+            const res = await realSearch(query, 5);
             setResults(res.results);
         } catch (err) {
             console.error(err);

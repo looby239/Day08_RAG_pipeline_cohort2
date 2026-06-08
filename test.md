@@ -89,6 +89,43 @@
 
 ---
 
+## Golden Dataset — Đáp Án Chuẩn (để chấm RAGAS / DeepEval)
+
+> Các entry dưới đây có **ground-truth** (đáp án + nguồn + vị trí điều khoản), đã **đối chiếu
+> trực tiếp với corpus** trong `data/standardized/legal/`. Dùng làm input cho evaluation
+> pipeline (`group_project/evaluation/`). Schema mỗi câu:
+> `id, category, difficulty, question, expected_answer, expected_context, expected_sources`.
+
+```json
+[
+  {
+    "id": "legal-01",
+    "category": "legal",
+    "difficulty": "direct",
+    "question": "Luật Phòng, chống ma tuý hiện hành của Việt Nam có số hiệu gì và hiệu lực từ khi nào?",
+    "expected_answer": "Luật Phòng, chống ma túy hiện hành là Luật số 73/2021/QH14, có hiệu lực thi hành từ ngày 01/01/2022.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, số 73/2021/QH14; điều khoản hiệu lực thi hành",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
+  },
+  {
+    "id": "legal-02",
+    "category": "legal",
+    "difficulty": "direct",
+    "question": "Thời hạn quản lý người sử dụng trái phép chất ma túy là bao lâu?",
+    "expected_answer": "Thời hạn quản lý là 01 năm kể từ ngày Chủ tịch Ủy ban nhân dân cấp xã ra quyết định quản lý.",
+    "expected_context": "Luật Phòng, chống ma túy 2021, Điều 23 khoản 2",
+    "expected_sources": ["luat-phong-chong-ma-tuy-2021.md"]
+  }
+]
+```
+
+> ✅ **Đã verify với corpus:** legal-01 → "Luật số: 73/2021/QH14" + "Luật này có hiệu lực thi
+> hành từ ngày 01 tháng 01 năm 2022"; legal-02 → Điều 23 khoản 2 "…là 01 năm kể từ ngày Chủ
+> tịch Ủy ban nhân dân cấp xã ra quyết định quản lý".
+> Khi mở rộng thêm câu (legal-03, news-01…), hãy đối chiếu nguồn tương tự để tránh sai ground-truth.
+
+---
+
 ## Ma Trận Chất Lượng
 
 | Tiêu chí | Câu hỏi liên quan | Kỳ vọng |

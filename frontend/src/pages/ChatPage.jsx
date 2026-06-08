@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, FileText, ToggleLeft, ToggleRight } from 'lucide-react';
-import { mockChat } from '../config/api';
+import { realChat } from '../config/api';
 
 const ChatPage = () => {
     const [messages, setMessages] = useState([{
@@ -10,6 +10,7 @@ const ChatPage = () => {
     }]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [sessionId, setSessionId] = useState(null);
     const [useHyDE, setUseHyDE] = useState(false);
     const [topK, setTopK] = useState(5);
     const [threshold, setThreshold] = useState(0.5);
@@ -38,14 +39,15 @@ const ChatPage = () => {
         setIsLoading(true);
 
         try {
-            const res = await mockChat(userMsg, useHyDE);
-            setMessages(prev => [...prev, { 
-                role: 'assistant', 
+            const res = await realChat(userMsg, sessionId, topK);
+            if (res.session_id) setSessionId(res.session_id);
+            setMessages(prev => [...prev, {
+                role: 'assistant',
                 content: res.answer,
                 sources: res.sources
             }]);
         } catch (error) {
-            setMessages(prev => [...prev, { role: 'assistant', content: 'Lỗi khi gọi API.' }]);
+            setMessages(prev => [...prev, { role: 'assistant', content: `Lỗi: ${error.message}` }]);
         } finally {
             setIsLoading(false);
         }

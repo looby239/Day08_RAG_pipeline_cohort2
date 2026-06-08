@@ -17,5 +17,8 @@ Thumbs.db
 # Tooling (local config)
 .claude/
 
+# Frontend build cache
+frontend/.vite/
+
 # Build artifact: vector index (rebuild bằng: python -m src.task4_chunking_indexing)
 data/index/

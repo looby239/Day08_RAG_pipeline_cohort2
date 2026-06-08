@@ -10,6 +10,7 @@ Corpus lấy từ data/index/chunks.json (do Task 4 tạo) để cùng tập chu
 
 import json
 import re
+import unicodedata
 from functools import lru_cache
 
 try:
@@ -20,8 +21,13 @@ except ImportError:
 _TOKEN_RE = re.compile(r"\w+", re.UNICODE)
 
 
+def _normalize_vi(text: str) -> str:
+    """NFC normalization để đồng nhất Unicode tổ hợp vs dựng sẵn (tuý↔túy, v.v.)."""
+    return unicodedata.normalize("NFC", text)
+
+
 def tokenize(text: str) -> list[str]:
-    return _TOKEN_RE.findall(text.lower())
+    return _TOKEN_RE.findall(_normalize_vi(text).lower())
 
 
 @lru_cache(maxsize=1)

@@ -8,6 +8,8 @@ Query
   └→ Nếu độ tin cậy hybrid < threshold → Fallback PageIndex (source='pageindex')
 """
 
+import os
+
 try:
     from .task5_semantic_search import semantic_search
     from .task6_lexical_search import lexical_search
@@ -49,9 +51,18 @@ def retrieve(
         item["source"] = "hybrid"
 
     if use_reranking and merged:
+        # Lưu cosine score từ dense trước khi rerank ghi đè (để restore khi dùng fallback).
+        dense_score_map = {d["content"]: d["score"] for d in dense}
+
         final = rerank(query, merged, top_k=top_k, method=RERANK_METHOD)
         for item in final:
             item.setdefault("source", "hybrid")
+            # Nếu cross-encoder không bật, score là token-overlap (Jaccard) — không trực quan.
+            # Thay bằng cosine similarity từ dense để hiển thị ý nghĩa hơn.
+            if not os.getenv("ENABLE_CROSS_ENCODER"):
+                cosine = dense_score_map.get(item["content"])
+                if cosine is not None:
+                    item["score"] = cosine
     else:
         final = merged[:top_k]
 

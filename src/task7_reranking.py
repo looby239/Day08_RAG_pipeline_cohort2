@@ -11,12 +11,21 @@ Cung cấp 3 phương pháp (đều implement đầy đủ):
 import math
 import os
 import re
+import unicodedata
 
 _TOKEN_RE = re.compile(r"\w+", re.UNICODE)
 
+# Bảng map tone variant tiếng Việt phổ biến (tuý↔túy, v.v.)
+_TONE_MAP = str.maketrans("àáâãèéêìíòóôõùúýăđơư", "àáâãèéêìíòóôõùúýăđơư")
+
+
+def _normalize_vi(text: str) -> str:
+    """NFC normalization để đồng nhất Unicode tổ hợp vs dựng sẵn."""
+    return unicodedata.normalize("NFC", text)
+
 
 def _tok(text: str) -> set:
-    return set(_TOKEN_RE.findall(text.lower()))
+    return set(_TOKEN_RE.findall(_normalize_vi(text).lower()))
 
 
 def _overlap_score(query: str, content: str) -> float:
