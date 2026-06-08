@@ -43,6 +43,7 @@ const IngestionPage = () => {
                 const res = await realUpload(file);
                 setLogs(prev => [...prev, ...res.logs.map(l => `> ${l}`), `> SUCCESS: ${res.message}`]);
                 setUploadedFiles(prev => [...prev, file]);
+                window.dispatchEvent(new Event('stats_updated'));
             } catch (error) {
                 setLogs(prev => [...prev, `> ERROR: Thất bại khi tải lên ${file.name}. ${error.message || ''}`]);
             }

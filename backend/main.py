@@ -173,18 +173,28 @@ def _validate_upload_file(file: UploadFile, filename: str) -> None:
         )
 
 
-def _extract_text_from_upload(filename: str, content: bytes) -> str:
+def _extract_text_from_upload(filename: str, content: bytes, filepath: Path) -> str:
+    try:
+        from markitdown import MarkItDown
+        md_converter = MarkItDown()
+        extracted = md_converter.convert(str(filepath)).text_content
+        if extracted and extracted.strip():
+            return extracted.strip()
+    except Exception as exc:
+        logger.warning("MarkItDown failed to extract text from %s: %s", filename, exc)
+
     try:
         text = content.decode("utf-8")
     except UnicodeDecodeError:
         text = content.decode("utf-8", errors="ignore")
 
-    if text.strip():
+    if text.strip() and not text.startswith("PK"):
         return text.strip()
+        
     return (
         f"Uploaded binary document: {filename}\n\n"
         "Text extraction fallback: this file was saved successfully, but plain text "
-        "could not be extracted without an external document parser."
+        "could not be extracted. Please ensure the file is a readable text format."
     )
 
 
@@ -400,7 +410,7 @@ async def upload(file: UploadFile = File(...)) -> UploadResponse:
     landing_path.write_bytes(content)
 
     logs.append("Extracting text from document...")
-    extracted_text = _extract_text_from_upload(filename, content)
+    extracted_text = _extract_text_from_upload(filename, content, landing_path)
 
     logs.append("Chunking text and generating embeddings...")
     markdown_path = UPLOAD_STANDARDIZED_DIR / f"{Path(filename).stem}.md"

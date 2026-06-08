@@ -34,6 +34,9 @@ const Sidebar = () => {
             }
         };
         loadStats();
+        
+        window.addEventListener('stats_updated', loadStats);
+        return () => window.removeEventListener('stats_updated', loadStats);
     }, []);
 
     return (
