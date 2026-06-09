@@ -30,7 +30,7 @@ try:
         for doc, meta in zip(data["documents"], data["metadatas"]):
             CORPUS.append({"content": doc, "metadata": meta})
 except Exception as e:
-    print(f"[WARNING] Không thể load CORPUS từ ChromaDB: {e}")
+    print(f"[WARNING] Failed to load CORPUS from ChromaDB: {e}")
 
 
 def build_bm25_index(corpus: list[dict]):

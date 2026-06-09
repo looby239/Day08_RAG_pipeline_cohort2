@@ -42,7 +42,7 @@ def semantic_search(query: str, top_k: int = 10) -> list[dict]:
     try:
         collection = client.get_collection("DrugLawDocs")
     except Exception:
-        print("[ERROR] Không tìm thấy collection 'DrugLawDocs'. Hãy chạy task 4 trước.")
+        print("[ERROR] Collection 'DrugLawDocs' not found. Please run task 4 first.")
         return []
 
     results = collection.query(
